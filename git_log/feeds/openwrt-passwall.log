@@ -1,17 +1,19 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/a0ab013ed12d404db468896d93ab22bf91481df1...7005c39f5de9206a5e99b0927ef6caf65e884ac7)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/7005c39f5de9206a5e99b0927ef6caf65e884ac7...92f72ea44ffc962e02a221dac1985142e4e90667)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-7005c39|A-BO|Thu Apr 30 23:16:20 2026 +0800|luci: optimize socks startup logic
-000f5ad|A-BO|Thu Apr 30 21:21:04 2026 +0800|luci: sing-box supports system hosts
-636053a|A-BO|Thu Apr 30 19:36:36 2026 +0800|luci: fix `domain_strategy` of subscribe
-2dbb84f|A-BO|Thu Apr 30 10:50:10 2026 +0800|luci: change `tcp+doh` to `doh` of xray remote dns mode
-9f53af3|A-BO|Wed Apr 29 23:03:18 2026 +0800|luci: add domain name resolution for doh url
-5be803e|Liangbin Lian|Wed Apr 29 15:06:27 2026 +0800|luci: optimize the performance of check_excluded_domain (#4348)
-1fe5165|A-BO|Wed Apr 29 11:48:57 2026 +0800|luci: add DoH input description
-3459664|A-BO|Tue Apr 28 20:25:00 2026 +0800|luci: remove `echForceQuery` of xray
-dc17b76|A-BO|Tue Apr 28 13:06:43 2026 +0800|luci: fix dns redirect exposing port 53 to wan (#4346)
+92f72ea4|A-BO|Tue May 5 02:30:43 2026 +0800|luci: improve vmess subscribe
+3b97ffe4|A-BO|Mon May 4 20:33:45 2026 +0800|luci: optimize
+9365b3f3|David Mandy|Mon May 4 00:12:44 2026 +0800|ci: update dependency versions
+ffea67c2|A-BO|Sun May 3 23:39:06 2026 +0800|luci: 26.5.3
+e51dc7fe|A-BO|Sun May 3 23:35:36 2026 +0800|luci: support xray freedom `finalRules` (action = allow) (#4352)
+f102b0df|A-BO|Sun May 3 13:55:05 2026 +0800|luci: fix
+8a5adeb1|A-BO|Sun May 3 13:29:33 2026 +0800|luci: unified conver of node address to lowercase
+3d572032|A-BO|Sun May 3 01:10:11 2026 +0800|luci: refactor cron code
+11c4b720|A-BO|Sat May 2 14:31:09 2026 +0800|luci: simplify remote doh parameters
+4162fe15|A-BO|Thu Apr 30 23:16:20 2026 +0800|luci: optimize socks startup logic
+7005c39f|A-BO|Thu Apr 30 23:16:20 2026 +0800|luci: optimize socks startup logic
 </details>
