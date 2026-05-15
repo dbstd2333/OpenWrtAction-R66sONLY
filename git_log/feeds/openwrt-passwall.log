@@ -1,16 +1,13 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/20eb1a7da5028dce6e8a7b69c8353ba5b7062aa0...32ac46d42911453da27ced0247e70156016e0a4f)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/32ac46d42911453da27ced0247e70156016e0a4f...ce003cc2fb47b9c11d1445d875de810fc20b11a8)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-32ac46d|A-BO|Mon May 11 20:58:48 2026 +0800|luci: bump to 26.5.11
-9f70c20|A-BO|Mon May 11 20:29:37 2026 +0800|luci: optimize log related
-016a941|A-BO|Sat May 9 18:09:32 2026 +0800|luci: optimize xray balancing fallback node loop detection
-15f7c1f|A-BO|Sat May 9 13:43:01 2026 +0800|luci: optimize the logic of xray balancing fallback
-49b171e|A-BO|Sat May 9 13:02:31 2026 +0800|Revert "luci: rename xray inbounds' `clients/accounts` to `users` > 26.5.3"
-1ed88d1|A-BO|Sat May 9 12:59:51 2026 +0800|luci: optimize the logic of adding fakeip rule in the firewall
-f1bf89b|A-BO|Sat May 9 00:44:55 2026 +0800|luci: remove tuic-client
-a2ae3aa|A-BO|Fri May 8 22:37:05 2026 +0800|luci: remove trojan-plus
+ce003cc|A-BO|Fri May 15 10:16:19 2026 +0800|luci: update readme.md
+2dc8555|A-BO|Thu May 14 20:41:57 2026 +0800|luci: optimize and fixup
+a1f9927|A-BO|Thu May 14 19:38:41 2026 +0800|luci: add edit button for homepage shunt rule node
+49d1bb5|A-BO|Wed May 13 17:46:53 2026 +0800|luci: optimize
+7afed0c|A-BO|Tue May 12 11:32:56 2026 +0800|luci: optimize subscribe
 </details>

@@ -1,20 +1,20 @@
 <details> <summary> <b>immortalwrt new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/immortalwrt/immortalwrt/compare/209be9c9bdd3cbccd24ed9e8e662c022895293e2...bce0a385ed95e93bc86bd6ff3e5ec5fb25293454)  
+#### [:mega: Full Changelog. ](https://github.com/immortalwrt/immortalwrt/compare/bce0a385ed95e93bc86bd6ff3e5ec5fb25293454...e660cbc917924389164967211777106020b3cd56)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-bce0a385ed|Tianling Shen|Mon May 11 15:04:47 2026 +0800|Merge Official Source
-e850a972b5|Hauke Mehrtens|Thu Apr 30 21:42:43 2026 +0200|mac80211: bump to version 6.18.26
-0bcdcf67d7|Dmitry Mostovoy|Mon Feb 9 11:43:41 2026 -0500|mediatek: add cudy wr3000h-v1 ubootmod
-194bd76e57|Dmitry Mostovoy|Mon Feb 9 04:52:38 2026 -0500|mediatek: add cudy wr3000e-v1 ubootmod
-8afab079a5|Dmitry Mostovoy|Mon Feb 9 04:52:03 2026 -0500|mediatek: add cudy wr3000s-v1 ubootmod
-ddba80d21c|Dmitry Mostovoy|Mon Feb 9 04:51:31 2026 -0500|mediatek: add cudy wr3000p-v1 ubootmod
-79359ffe47|Dmitry Mostovoy|Mon Feb 9 04:51:15 2026 -0500|arm-trusted-firmware-mediatek: add Cudy DDR4 target
-b511c9c66b|Tianling Shen|Fri May 8 10:59:48 2026 +0800|xdp-tools: fix BPFTOOL detection
-236bd27019|Oskari Lemmela|Fri Nov 19 07:36:22 2021 +0200|ath79: add support for MikroTik RouterBOARD 960PGS
-906a8d7f70|Chester A. Unal|Tue Feb 24 15:39:36 2026 +0200|ath79: mikrotik: compile SWCONFIG and AR8216_PHY as modules
-9e7421174c|Sander Schutten|Wed Jan 15 08:38:17 2025 +0000|intel-microcode: fix dirty build
-530366cdfd|Florian Maurer|Wed Apr 15 01:05:45 2026 +0200|wifi-scripts: fix basic_rate mapping in supplicant ucode
+e660cbc917|Tianling Shen|Thu May 14 18:15:09 2026 +0800|Merge Official Source
+2b06da1589|Hauke Mehrtens|Thu May 14 00:58:17 2026 +0200|OpenWrt v25.12.4: revert to branch defaults
+ba915c2ee7|Hauke Mehrtens|Thu May 14 00:58:13 2026 +0200|OpenWrt v25.12.4: adjust config defaults
+4ccb782af7|Tomasz Maciej Nowak|Mon May 4 19:48:41 2026 +0200|ath79: wlr-7100: move to tiny target
+955f2a74d8|Tomasz Maciej Nowak|Mon May 4 19:48:40 2026 +0200|ath79: wlr-7100: wire up 5GHz WLAN LED
+510cf47386|Tomasz Maciej Nowak|Mon May 4 19:48:39 2026 +0200|ath79: wlr-7100: fix MAC assignment
+ca43162854|Tomasz Maciej Nowak|Thu Mar 12 20:45:58 2026 +0100|ipq40xx: wr-1: fix WLAN LEDs labels
+99211b26fb|Hannu Nyman|Tue May 12 22:56:36 2026 +0300|dnsmasq: apply six CVE-fix upstream patches to 2.91
+56d87f25a2|John Audia|Fri May 8 05:06:41 2026 -0400|kernel: bump 6.12 to 6.12.87
+a9e851a0d0|John Audia|Thu May 7 07:52:08 2026 -0400|kernel: bump 6.12 to 6.12.86
+80f009766f|Robert Marko|Mon May 11 10:49:09 2026 +0200|microchipsw: fix LAN8814 QSGMII soft reset
+7044345016|Mikhail Zhilkin|Tue Apr 7 19:53:33 2026 +0300|mediatek: cudy nand: fix wrong nmbm configuration
 </details>
