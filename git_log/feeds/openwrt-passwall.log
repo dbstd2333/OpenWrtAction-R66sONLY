@@ -1,13 +1,18 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/32ac46d42911453da27ced0247e70156016e0a4f...ce003cc2fb47b9c11d1445d875de810fc20b11a8)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/ce003cc2fb47b9c11d1445d875de810fc20b11a8...241c4144c064f4cd7a9637510696f704c6aeccb2)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-ce003cc|A-BO|Fri May 15 10:16:19 2026 +0800|luci: update readme.md
-2dc8555|A-BO|Thu May 14 20:41:57 2026 +0800|luci: optimize and fixup
-a1f9927|A-BO|Thu May 14 19:38:41 2026 +0800|luci: add edit button for homepage shunt rule node
-49d1bb5|A-BO|Wed May 13 17:46:53 2026 +0800|luci: optimize
-7afed0c|A-BO|Tue May 12 11:32:56 2026 +0800|luci: optimize subscribe
+241c414|A-BO|Tue May 19 02:13:41 2026 +0800|luci: fix hy(2) hop related issues
+080a748|A-BO|Mon May 18 21:32:28 2026 +0800|luci: add `tolerance` setting for xray balancer leastload
+08bab43|A-BO|Mon May 18 15:24:57 2026 +0800|luci: update readme.md
+ef1ceaa|A-BO|Mon May 18 09:27:48 2026 +0800|luci: optimize
+8a9b556|A-BO|Sun May 17 18:36:31 2026 +0800|luci: remove shadowsocks-libev
+b8fbe13|A-BO|Sun May 17 17:02:17 2026 +0800|luci: support hysteria2 realms for sing-box (>= 1.14 effectuate)
+fc2bd9d|A-BO|Sat May 16 19:17:35 2026 +0800|luci: support hysteria2 realms (hysteria core)
+f1dfc0c|A-BO|Sat May 16 17:10:21 2026 +0800|luci: skip tls `fragment` for sing-box naive
+65b9f4b|A-BO|Sat May 16 13:35:47 2026 +0800|luci: unify hy2 obfs field name and optimize ui
+76e2e42|A-BO|Sat May 16 11:54:33 2026 +0800|luci: add quic config option for sing-box hy2 (>= 1.14 effectuate)
 </details>

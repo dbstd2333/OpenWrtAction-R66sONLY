@@ -1,13 +1,16 @@
 <details> <summary> <b>openwrt-passwall-packages new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall-packages/compare/e1c6cf88a206fe64babc210761f9882143ec4b7f...f3410c44617547e4a20528fe4cfb73b6dcfcc3d2)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall-packages/compare/f3410c44617547e4a20528fe4cfb73b6dcfcc3d2...db195eb77f7c1b16231865232090054321ca3f8a)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-f3410c4|A-BO|Fri May 15 10:12:45 2026 +0800|haproxy: add package
-cc69d83|A-BO|Wed May 13 07:11:07 2026 +0800|ci: bump actions/checkout from 5 to 6
-2b9034e|David Mandy|Tue May 12 22:24:52 2026 +0800|v2ray-geosite: update to 202605112249 (#652)
-a60934e|David Mandy|Tue May 12 20:46:06 2026 +0800|ci: fixed token miss
-68f3a6c|David Mandy|Tue May 12 20:39:53 2026 +0800|ci: add github token preventing api limits
+db195eb|David Mandy|Mon May 18 21:00:09 2026 +0800|tuic-client: update to 1.8.2 (#659)
+cb8cced|A-BO|Mon May 18 15:21:10 2026 +0800|Revert "haproxy: add package"
+64bc5a6|A-BO|Mon May 18 15:21:02 2026 +0800|Revert "haproxy: update to 3.2.19"
+a3ae497|David Mandy|Fri May 15 22:22:41 2026 +0800|ci: optimize code
+266d97f|David Mandy|Fri May 15 21:15:00 2026 +0800|sing-box: update to 1.13.12 (#655)
+b1caf03|David Mandy|Fri May 15 21:14:34 2026 +0800|v2ray-geoip: update to 202605140048 (#656)
+96a2f20|David Mandy|Fri May 15 21:14:06 2026 +0800|v2ray-geosite: update to 202605142252 (#654)
+87befcb|A-BO|Fri May 15 10:58:33 2026 +0800|haproxy: update to 3.2.19
 </details>
