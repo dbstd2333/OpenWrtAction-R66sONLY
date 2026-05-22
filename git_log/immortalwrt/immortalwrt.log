@@ -1,19 +1,13 @@
 <details> <summary> <b>immortalwrt new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/immortalwrt/immortalwrt/compare/e660cbc917924389164967211777106020b3cd56...4695ae7bbe07d3f3f371188eeeba68cbab67a818)  
+#### [:mega: Full Changelog. ](https://github.com/immortalwrt/immortalwrt/compare/4695ae7bbe07d3f3f371188eeeba68cbab67a818...5273c136001eee71289e4a8b23c7eb59896cc9d4)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-4695ae7bbe|Tianling Shen|Sat May 16 16:35:14 2026 +0800|Merge Official Source
-13ff2256e5|Daniel Golle|Sat Apr 11 22:59:07 2026 +0100|mediatek: don't let devfreq power-off the CPU
-084cdacf9d|Hauke Mehrtens|Tue May 12 22:31:41 2026 +0200|toolchain: musl: backport patches with CVE fixes
-e4c15eb1a0|Dirk Buchwalder|Sun Mar 1 14:16:43 2026 +0100|airoha: an7581: add ubi nvmem driver
-feda35516c|Dirk Buchwalder|Sun Mar 1 14:13:55 2026 +0100|airoha: an7581: enable fitblk driver
-fac5a815ea|Dirk Buchwalder|Sun Mar 1 13:48:42 2026 +0100|uboot-airoha: add a label to the spi node
-aa3a9d8fa2|Kenneth Kasilag|Tue May 12 11:11:41 2026 +0000|uboot-airoha: add ethernet node for an7581 dtsi
-4729793b91|Russell Senior|Wed Apr 22 22:38:51 2026 -0700|uboot-airoha: increase the size of reserved_bmt partition
-887f21e21a|Kenneth Kasilag|Sat Feb 21 21:49:46 2026 +0000|airoha: an7581: add uboot chainloader
-8e751e953d|Kenneth Kasilag|Wed Mar 4 02:48:32 2026 +0000|uboot-airoha: rename FIP_COMPRESS to LZMA_COMPRESS
-3bd046e170|Christian Marangi|Thu May 14 22:02:00 2026 +0200|airoha: an7581: move internal PHY interrupt to specific device DTS
+5273c13600|Tianling Shen|Thu Jan 22 12:27:27 2026 +0800|aic8800: fix read cpuid
+20bd5b9c5a|Tianling Shen|Thu May 21 17:00:34 2026 +0800|valgrind: improve arm v7 detection
+28c099d34d|Tianling Shen|Thu May 21 15:23:16 2026 +0800|Merge Official Source
+42ea240132|Andrii Kuiukoff|Mon Apr 13 20:45:55 2026 +0300|uboot-mediatek: comfast cf-wr632ax: reduce ram speed to 1866 MT/s
+c01dc9c0fe|Andrii Kuiukoff|Sun May 17 13:50:06 2026 +0300|uboot-mediatek: comfast cf-wr632ax: sync with the main DTS
 </details>

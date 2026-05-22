@@ -1,25 +1,25 @@
 <details> <summary> <b>packages new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/immortalwrt/packages/compare/db9ec8181a70d7bce2bedf7d574e4c35c53416aa...b1b017905a1391c809f6afb8415e11be04787bc5)  
+#### [:mega: Full Changelog. ](https://github.com/immortalwrt/packages/compare/b1b017905a1391c809f6afb8415e11be04787bc5...679a0da68d2ee9c8b22b706d6e1354f8073b98be)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-b1b017905|Tianling Shen|Sat May 16 16:39:33 2026 +0800|Merge Official Source
-c7a312645|Seo Suchan|Thu May 14 13:30:11 2026 +0900|acme-acmsh: bump acme.sh to 3.1.3
-1ee16b8a7|Seo Suchan|Wed May 13 21:20:51 2026 +0900|acme: make 'acme' keyword actually virtual
-ff09b404a|Chester A. Unal|Wed May 13 13:16:26 2026 +0100|bsbf-resources: update to GIT HEAD of 2026-05-14
-961f82698|Yanase Yuki|Fri May 15 16:57:04 2026 +0900|kcptun: remove package
-124faa398|Yanase Yuki|Fri May 15 16:45:14 2026 +0900|udp-broadcast-relay-redux: remove package
-9bb8d0994|Daniel Golle|Fri May 8 18:20:23 2026 +0100|libb64: update to 2.0.0.1
-72b2296d6|Daniel Golle|Fri May 8 18:50:24 2026 +0100|transmission: update to 4.1.1
-cece7c883|Josef Schlehofer|Sun May 10 09:15:34 2026 +0200|flup: remove the package
-f91b06b3f|Chester A. Unal|Mon May 11 21:17:29 2026 +0100|bsbf-resources: update to GIT HEAD of 2026-05-11
-0f33b1683|Chester A. Unal|Mon May 11 20:10:48 2026 +0100|bsbf-openwrt-resources: add network to firewall wan zone
-6082ba79c|Dirk Brenken|Mon May 11 21:21:18 2026 +0200|adblock: update 4.5.5-3
-70d27a2af|Stan Grishin|Sat May 9 05:38:49 2026 +0000|https-dns-proxy: update to 2026.03.18-3
-831e9d510|Hannu Nyman|Sun May 10 15:59:04 2026 +0300|haveged: update to 1.9.20
-e85652958|Alan Feng|Tue May 5 16:17:43 2026 +0800|nebula: bump version to 1.10.3
+679a0da68|Tianling Shen|Wed May 20 11:46:35 2026 +0800|7z: Update to 26.01
+44f602267|Tianling Shen|Thu May 21 15:25:04 2026 +0800|Merge Official Source
+535f243e2|Dirk Brenken|Wed May 20 22:51:35 2026 +0200|adblock: update 4.5.5-5
+ce34a673e|Jens Wagner|Fri May 15 19:21:29 2026 +0200|mbpoll: update to 1.5.4
+d4ee8d285|Fotios Kitsantas|Sun May 10 14:22:55 2026 +0100|ddns-scripts: add blazingfast.io Anycast DNS provider
+aa81ad643|Alexandru Ardelean|Wed May 20 11:22:31 2026 +0300|perl: fix miniperl missing execute permission (CI fix)
+e252ed0f7|Jens Wagner|Fri May 15 18:00:06 2026 +0200|perl: fix missing line numbers in error messages
+d3d632540|Alexandru Ardelean|Wed May 13 09:22:24 2026 +0300|perl: add test-version.sh to skip version check
+3de0e4b1c|Jens Wagner|Fri May 15 19:48:40 2026 +0200|perl-io-socket-ssl: update to 2.098
+4e222e562|Jens Wagner|Fri Jan 2 14:56:33 2026 +0100|perlbase-encode: added dependency on perlbase-storable
+8a796bbe3|Jens Wagner|Fri May 15 18:01:35 2026 +0200|perl: fix dependency issues in archive, pod and test
+fe0207ec4|Tianling Shen|Wed May 20 10:24:17 2026 +0800|Merge Official Source
+191f5bf9c|Tianling Shen|Tue May 19 10:59:49 2026 +0800|v2ray-core: Update to 5.49.0
+6ea2f8cbf|Tianling Shen|Tue May 19 10:59:24 2026 +0800|v2ray-geodata: Update to latest version
+5fa8daa91|Tianling Shen|Sat May 9 11:53:05 2026 +0800|openlist: Update to 4.2.1
 
 
 </details>
