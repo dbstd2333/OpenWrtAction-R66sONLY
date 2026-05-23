@@ -8,6 +8,7 @@ export repos=(
   "src-git helloworld https://github.com/fw876/helloworld;master"
   "src-git OpenClash https://github.com/vernesong/OpenClash;master"
   "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main"
+  "src-git ghfu https://github.com/smallprogram/luci-app-ghfu.git;main"
 )
 
 # 自定义软件包列表
@@ -44,6 +45,10 @@ clone_custom_packages () {
 
     git clone https://github.com/timsaya/openwrt-bandix.git ${path}openwrt-bandix
     git clone https://github.com/timsaya/luci-app-bandix.git ${path}luci-app-bandix
+    git clone https://github.com/timsaya/openwrt-bandix-plus.git ${path}openwrt-bandix-plus
+    git clone https://github.com/timsaya/luci-app-bandix-plus.git ${path}luci-app-bandix-plus
+    
+
     git clone https://github.com/destan19/OpenAppFilter.git ${path}OpenAppFilter
 
     
@@ -72,4 +77,25 @@ clone_custom_packages () {
     done
 
     echo "注释处理完成。"
+    #-------------------------------------------设置默认主题------------------------------------------
+    # 1. 确保构建根目录下的自定义文件路径存在
+    mkdir -p files/etc/uci-defaults
+    # 2. 将主题设置脚本写入到 zz-set-default-theme 文件中
+    # 这里的文本必须全部顶格写，防止 #!/bin/sh 前面产生空格
+cat << "EOF" > files/etc/uci-defaults/zz-set-default-theme
+#!/bin/sh
+
+# 强制覆写节点，不判断任何条件
+uci set luci.themes.Argon=/luci-static/argon
+uci set luci.main.mediaurlbase=/luci-static/argon
+uci commit luci
+
+exit 0
+EOF
+
+    # 3. 赋予可执行权限（否则不会在开机执行）
+    chmod +x files/etc/uci-defaults/zz-set-default-theme
+
+    echo "默认主题设置已生成！"
+    #-------------------------------------------end设置默认主题------------------------------------------
 }

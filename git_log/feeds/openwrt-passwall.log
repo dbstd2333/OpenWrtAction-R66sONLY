@@ -1,6 +1,6 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/241c4144c064f4cd7a9637510696f704c6aeccb2...cf6991efc22a3fe7860749ca15c62629f30fbe2d)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/0ce6d79b5104ea233a3a1592481a416b4d92a29c...cf6991efc22a3fe7860749ca15c62629f30fbe2d)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
@@ -9,10 +9,4 @@ cf6991ef|A-BO|Fri May 22 11:26:12 2026 +0800|luci: optimize smartdns status disp
 fb4c198a|A-BO|Thu May 21 00:59:12 2026 +0800|luci: add hysteria(2) default bandwidth value for subscribe
 47ec87c4|A-BO|Thu May 21 00:33:40 2026 +0800|luci: exclude illegal node ip
 d9373af2|A-BO|Wed May 20 15:37:54 2026 +0800|luci: 26.5.20
-0ce6d79b|A-BO|Wed May 20 11:53:02 2026 +0800|luci: optimize network interface setting
-6634ded8|A-BO|Tue May 19 22:36:55 2026 +0800|luci: shorten set names
-5cb8fd4d|A-BO|Tue May 19 20:23:47 2026 +0800|luci: optimize node outbound interface setting
-b1db1e47|A-BO|Tue May 19 17:39:40 2026 +0800|luci: Xray node add outbound interface option
-36876c36|A-BO|Tue May 19 13:31:56 2026 +0800|luci: Sing-Box node add outbound interface option
-48e35628|A-BO|Tue May 19 13:03:05 2026 +0800|luci: fix
 </details>

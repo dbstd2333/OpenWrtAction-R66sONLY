@@ -1,10 +1,17 @@
 <details> <summary> <b>packages new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/immortalwrt/packages/compare/b1b017905a1391c809f6afb8415e11be04787bc5...679a0da68d2ee9c8b22b706d6e1354f8073b98be)  
+#### [:mega: Full Changelog. ](https://github.com/immortalwrt/packages/compare/fe0207ec43e3a40688175cafa34993ad00be8fbf...69f474e5d5f764d0f6d4be9e0356f656cf375ba6)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
+69f474e5d|Tianling Shen|Thu May 21 16:37:45 2026 +0800|smartdns: Update to 48
+196642ccf|Tianling Shen|Thu May 21 15:50:58 2026 +0800|srelay: drop outdated package
+973c21a87|Tianling Shen|Thu May 21 15:46:20 2026 +0800|libnetconf2: fix build with libopenssl
+0dedf9c88|Tianling Shen|Thu May 21 15:41:31 2026 +0800|dhrystone: update mirror hash
+b2af17e70|Tianling Shen|Thu May 21 15:35:48 2026 +0800|Revert "sysrepo: add cmake 4.x compatibility"
+0dc36d6cf|Tianling Shen|Thu May 21 15:34:41 2026 +0800|gst1-plugins-bad: add missing dependencies for v4l2codecs
+4e71c17ac|Tianling Shen|Thu May 21 15:31:40 2026 +0800|scutclient: fix build with cmake 4.x
 679a0da68|Tianling Shen|Wed May 20 11:46:35 2026 +0800|7z: Update to 26.01
 44f602267|Tianling Shen|Thu May 21 15:25:04 2026 +0800|Merge Official Source
 535f243e2|Dirk Brenken|Wed May 20 22:51:35 2026 +0200|adblock: update 4.5.5-5
@@ -13,13 +20,6 @@ d4ee8d285|Fotios Kitsantas|Sun May 10 14:22:55 2026 +0100|ddns-scripts: add blaz
 aa81ad643|Alexandru Ardelean|Wed May 20 11:22:31 2026 +0300|perl: fix miniperl missing execute permission (CI fix)
 e252ed0f7|Jens Wagner|Fri May 15 18:00:06 2026 +0200|perl: fix missing line numbers in error messages
 d3d632540|Alexandru Ardelean|Wed May 13 09:22:24 2026 +0300|perl: add test-version.sh to skip version check
-3de0e4b1c|Jens Wagner|Fri May 15 19:48:40 2026 +0200|perl-io-socket-ssl: update to 2.098
-4e222e562|Jens Wagner|Fri Jan 2 14:56:33 2026 +0100|perlbase-encode: added dependency on perlbase-storable
-8a796bbe3|Jens Wagner|Fri May 15 18:01:35 2026 +0200|perl: fix dependency issues in archive, pod and test
-fe0207ec4|Tianling Shen|Wed May 20 10:24:17 2026 +0800|Merge Official Source
-191f5bf9c|Tianling Shen|Tue May 19 10:59:49 2026 +0800|v2ray-core: Update to 5.49.0
-6ea2f8cbf|Tianling Shen|Tue May 19 10:59:24 2026 +0800|v2ray-geodata: Update to latest version
-5fa8daa91|Tianling Shen|Sat May 9 11:53:05 2026 +0800|openlist: Update to 4.2.1
 
 
 </details>

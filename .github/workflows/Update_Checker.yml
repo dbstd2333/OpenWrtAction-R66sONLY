@@ -19,9 +19,8 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 0 0 * * 2,5
-      # 0 4 * * 5
-      # 0 4,12,20 * * *
+    - cron: '0 16 */3 * *'
+    # 每三天的UTC 16:00触发 北京时间为每三天的凌晨0点
 
 permissions:
   contents: write
@@ -65,7 +64,6 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           retain_days: 90
-          keep_minimum_runs: 6
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@master
@@ -84,7 +82,7 @@ jobs:
         delete-untagged: true
         packages: openwrt-base-cache*
         expand-packages: true
-        token: ${{ secrets.MY_ADMIN_PAT }}
+        token: ${{ secrets.MY_SECRET_PAT }}
     
     - name: Stateful Lifecycle Check
       id: lifecycle_check

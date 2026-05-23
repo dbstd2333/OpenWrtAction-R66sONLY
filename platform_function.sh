@@ -75,7 +75,6 @@ Func_SyncCodeToGitLogTime(){
     cd /home/${user_name}/${openwrt_dir}
     find . -name ".git" -type d | while read gitdir; do
         repo_dir=$(dirname "$gitdir")
-        echo "-> 正在处理 Git 仓库: $repo_dir"
         Func_LogSuccess "-> 正在处理 Git 仓库:${repo_dir}" "-> Processing Git repository:${repo_dir}"
         cd "/home/${user_name}/${openwrt_dir}/$repo_dir"
         git log --format=%at --name-only | perl -ane '
@@ -90,6 +89,9 @@ Func_SyncCodeToGitLogTime(){
         '
         cd /home/${user_name}/${openwrt_dir}
     done
+    
+    find /home/${user_name}/${openwrt_dir}/dl -type f | xargs -r touch -t 200001010000
+    Func_LogSuccess "-> 处理DL目录时间戳完成" "-> Git repository processing completed"
 }
 
 # 编译报错检查函数
@@ -217,6 +219,7 @@ Func_CleanCompile(){
 
 # DIY1 Script函数
 Func_DIY1_Script() {
+    cd /home/${user_name}/${openwrt_dir}
     Func_LogMessage "开始执行DIY1设置脚本" "Start executing the DIY1 setup script"
     sleep 1s
 
@@ -228,6 +231,7 @@ Func_DIY1_Script() {
 
 # feeds更新函数，防止feeds force push导致feeds无法更新
 Func_FeedsUpdate() {
+    cd /home/${user_name}/${openwrt_dir}
 
     Func_LogMessage "是否清理feeds，如果不输入任何值默认否，输入任意值清理feeds" "Whether to clean up feeds. If no value is entered, the default is "no". If any value is entered, the feeds are cleaned up."
     Func_LogMessage "将会在$timer秒后自动选择默认值" "The default value will be automatically selected after $timer seconds"
@@ -271,6 +275,7 @@ Func_FeedsUpdate() {
 
 # DIY2 Script函数
 Func_DIY2_Script() {
+    cd /home/${user_name}/${openwrt_dir}
     Func_LogMessage "开始执行DIY2设置脚本" "Start executing the DIY2 setup script"
     sleep 1s
 
@@ -282,6 +287,7 @@ Func_DIY2_Script() {
 
 # make defconfig函数
 Func_Defconfig(){
+    cd /home/${user_name}/${openwrt_dir}
     # 获取第一个参数：是否从源注入配置
     local inject_from_source=$1
     echo
@@ -310,21 +316,23 @@ Func_Defconfig(){
 
 # make download函数
 Func_MakeDownload() {
+    cd /home/${user_name}/${openwrt_dir}
     Func_LogMessage "开始执行make download!" "Start to execute make download!"
     sleep 1s
-    make -j8 download | tee -a /home/${user_name}/${log_folder_name}/${folder_name}/Func_Main4_make_download-git_log.log
+    make -j$(nproc) download | tee -a /home/${user_name}/${log_folder_name}/${folder_name}/Func_Main4_make_download-git_log.log
     is_complie_error=${PIPESTATUS[0]}
     Func_Check_Compile_Error "$is_complie_error" "make download"
 
     Func_LogMessage "开始清理download残留!" "Start cleaning up download residue!"
-    find dl -mindepth 1 -type d -exec rm -rf {} \;
-    find dl -size -1024c -exec ls -l {} \;
-    find dl -size -1024c -exec rm -f {} \;
+    # find dl -mindepth 1 -type d -exec rm -rf {} \;
+    # find dl -size -1024c -exec ls -l {} \;
+    # find dl -size -1024c -exec rm -f {} \;
 }
 
 # make toolchain函数
 Func_MakeToolchain() {
-        echo
+    cd /home/${user_name}/${openwrt_dir}
+    echo
     Func_LogMessage "开始make toolchain." "Begin make toolchain"
     sleep 2s
     echo
@@ -375,6 +383,7 @@ Func_MakeToolchain() {
 
 # make固件函数
 Func_MakeFirmware() {
+    cd /home/${user_name}/${openwrt_dir}
     Func_LogMessage "开始执行生成固件" "Start to Generate Frimware!"
     sleep 1s
     if [[ $sysenv == 1 ]]; then
@@ -483,11 +492,11 @@ Func_Compile_Firmware() {
 
     Func_Copy_Backgroundfiles "1" "${config_name}"
 
-    Func_SyncCodeToGitLogTime
-
     Func_Defconfig "$inject_from_source"
     
     Func_MakeDownload
+
+    Func_SyncCodeToGitLogTime
 
     Func_MakeToolchain
 
@@ -775,11 +784,12 @@ Func_Main() {
             done
 
             if [[ $num_continue == 1 ]]; then
-                Func_SyncCodeToGitLogTime
-
+                
                 Func_Defconfig "false"
                 
                 Func_MakeDownload
+
+                Func_SyncCodeToGitLogTime
 
                 Func_MakeToolchain
 
@@ -874,13 +884,13 @@ Func_Main() {
         done
 
         if [[ $num_continue == 1 ]]; then
-            Func_SyncCodeToGitLogTime
-            
             Func_Copy_Backgroundfiles "1" "${config_name}"
 
             Func_Defconfig "true"
             
             Func_MakeDownload
+
+            Func_SyncCodeToGitLogTime
 
             Func_MakeToolchain
 

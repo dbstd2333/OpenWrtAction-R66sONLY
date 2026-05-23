@@ -79,7 +79,7 @@
 ## ⚙️ WorkFlow
 |ActionStatus|Network Support|Latest Release|Latest Download|
 |-|-|-|-|
-|[![Build-OpenWrt_Multi-Platform(V6)](https://github.com/smallprogram/OpenWrtAction/actions/workflows/Build-OpenWrt_Multi-Platform(V6).yml/badge.svg)](https://github.com/smallprogram/OpenWrtAction/actions/workflows/Build-OpenWrt_Multi-Platform(V6).yml)|![](https://img.shields.io/badge/-IPv4-green) ![](https://img.shields.io/badge/-IPv6-yellowgreen)|![GitHub release (with filter)](https://img.shields.io/github/v/release/smallprogram/OpenWrtAction)|[![GitHub release (latest by date)](https://img.shields.io/github/downloads/smallprogram/OpenWrtAction/latest/total?style=flat-square)](https://github.com/smallprogram/OpenWrtAction/releases/latest)|
+|[![Build_Multi_Platform(V6)](https://github.com/smallprogram/OpenWrtAction/actions/workflows/Build_Multi_Platform(V6).yml/badge.svg)](https://github.com/smallprogram/OpenWrtAction/actions/workflows/Build_Multi_Platform(V6).yml)|![](https://img.shields.io/badge/-IPv4-green) ![](https://img.shields.io/badge/-IPv6-yellowgreen)|![GitHub release (with filter)](https://img.shields.io/github/v/release/smallprogram/OpenWrtAction)|[![GitHub release (latest by date)](https://img.shields.io/github/downloads/smallprogram/OpenWrtAction/latest/total?style=flat-square)](https://github.com/smallprogram/OpenWrtAction/releases/latest)|
 
 
 > Each Release contains multiple source platform firmwares. Please select the corresponding firmware download according to your platform.
@@ -96,11 +96,14 @@
 Selected plug-in configuration, covering common functions such as network acceleration, theme beautification, system management, etc.
 
 ![](https://img.shields.io/badge/Visual_Studio_Code_SSH-Support-green)
+![](https://img.shields.io/badge/Dropbear_SSH-port2222-green)
+![](https://img.shields.io/badge/OpenSSH-port22-green)
 
 
 
 ### 📡 Network and Agent
 ```
+CONFIG_PACKAGE_luci-app-adguardhome=y
 CONFIG_PACKAGE_luci-app-ddns-go=y
 CONFIG_PACKAGE_luci-app-homeproxy=y
 CONFIG_PACKAGE_luci-app-mosdns=y
@@ -115,9 +118,11 @@ CONFIG_PACKAGE_luci-app-udp2raw=y
 CONFIG_PACKAGE_luci-app-udpxy=y
 CONFIG_PACKAGE_luci-app-cloudflared=y
 CONFIG_PACKAGE_luci-app-zerotier=y
+CONFIG_PACKAGE_nmap-full
 ```
 ### ⚙️ System Management and Tools
 ```
+CONFIG_PACKAGE_luci-app-ghfu=y
 CONFIG_PACKAGE_luci-app-commands=y
 CONFIG_PACKAGE_luci-app-ramfree=y
 CONFIG_PACKAGE_luci-app-hd-idle=y
@@ -164,6 +169,15 @@ CONFIG_PACKAGE_luci-theme-material=y
 CONFIG_PACKAGE_luci-theme-openwrt=y
 CONFIG_PACKAGE_luci-theme-openwrt-2020=y
 ```
+
+### 🚀 luci-app-ghfu
+
+You can directly update to the latest firmware from this repository via LuCI, thereby bypassing the tedious manual update process. For more details, please refer to https://github.com/smallprogram/luci-app-ghfu.
+
+![alt text](pic/ghfu/en.png)
+
+![alt text](pic/ghfu/en_update.png)
+
 ---
 
 [![Star History Chart](https://api.star-history.com/svg?repos=smallprogram/OpenWrtAction&type=Date)](https://star-history.com/#smallprogram/OpenWrtAction&Date)

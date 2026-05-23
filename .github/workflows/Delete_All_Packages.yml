@@ -5,11 +5,11 @@
 # See /LICENSE for more information.
 #
 # https://github.com/smallprogram/OpenWrtAction
-# File: .github/workflows/Update_Checker.yml
-# Description: Source code update checker
+# File: .github/workflows/Delete_All_Packages.yml
+# Description: Delete all OpenWrt packages
 #
 
-name: Delete All Packages
+name: Delete_All_Packages
 
 on:
   workflow_dispatch:
@@ -31,7 +31,7 @@ jobs:
     steps:
     - name: Delete all openwrt-* packages completely
       env:
-        GH_TOKEN: ${{ secrets.MY_ADMIN_PAT }}
+        GH_TOKEN: ${{ secrets.MY_SECRET_PAT }}
         USERNAME: smallprogram
       run: |
         echo "获取所有容器包列表..."

@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build-OpenWrt_Multi-Platform(V6)
+name: Build_Multi_Platform(V6)
 
 on:
   repository_dispatch:
@@ -167,6 +167,7 @@ jobs:
         with:
           name: Source_${{ matrix.source_code_platform }}
           path: ${{ steps.generate_image.outputs.SOURCE_PATH }}/output/output.tar.gz
+          overwrite: true
           retention-days: 5
 
       - name: Generate Git Log
@@ -181,6 +182,7 @@ jobs:
         with:
           name: git_log_${{ matrix.source_code_platform }}
           path: git_log_${{ matrix.source_code_platform }}.txt
+          overwrite: true
           retention-days: 5
 
       - name: Generate Release Tag
@@ -194,6 +196,7 @@ jobs:
         with:
           name: release_${{ matrix.source_code_platform }}
           path: release_${{ matrix.source_code_platform }}.txt
+          overwrite: true
           retention-days: 5
 
   job_generate_release_tag: 
@@ -238,6 +241,7 @@ jobs:
           name: release_tag
           path: release.txt
           retention-days: 5
+          overwrite: true
 
       - name: Create Release Tag
         uses: softprops/action-gh-release@v3
@@ -380,7 +384,32 @@ jobs:
           rm -rf download/output.tar.gz
           sudo chown -R $USER:$GROUPS /workdir/openwrt
 
-      - name: Git Restore Mtime (True SSoT)
+      - name: Load Configuration
+        if: steps.matrix_status.outputs.status != 'success'
+        run: |
+          [ -e ${{ matrix.value.CONFIGS }}/${{ matrix.platform }}.config ] && cp -r ${{ matrix.value.CONFIGS }}/${{ matrix.platform }}.config openwrt/.config
+          cd openwrt
+          make defconfig
+
+      - name: Download Package
+        if: steps.matrix_status.outputs.status != 'success'
+        run: |
+          cd $GITHUB_WORKSPACE/openwrt
+          # 设置重试次数，比如 3 次
+          for i in {1..3}; do
+            echo "开始第 $i 次尝试执行 make download..."
+            
+            timeout 8m make download -j8 && break || echo "第 $i 次尝试超时或失败，准备重试..."
+            
+            # 在最后一次尝试失败后，手动抛出错误退出
+            if [ $i -eq 3 ]; then
+              echo "经过 3 次尝试后依然失败，停止执行。"
+              exit 1
+            fi
+
+          done
+
+      - name: Git Restore Mtime (True SSoT) And DL Restore Time
         if: steps.matrix_status.outputs.status != 'success'
         run: |
           cd /workdir/openwrt
@@ -402,61 +431,119 @@ jobs:
               cd /workdir/openwrt
           done
 
+          find /workdir/openwrt/dl -type f | xargs -r touch -t 200001010000
+          echo "✅ dl/ 时间戳逆转完成！"
+
       - name: Restore Entire OpenWrt Cache from GHCR
         id: restore_cache
         if: steps.matrix_status.outputs.status != 'success' && github.event.inputs.force_rebuild != 'true'
         run: |
+
+          df -hT
+
           REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           PLATFORM_NAME=$(echo "${{ matrix.source_code_platform }}-${{ matrix.platform }}" | tr '[:upper:]' '[:lower:]')
-          IMAGE_NAME="ghcr.io/$REPO_OWNER/openwrt-base-cache-$PLATFORM_NAME:latest"
+          IMAGE_NAME="ghcr.io/smallprogram/openwrt-base-cache-$PLATFORM_NAME:latest"
           
           if docker pull $IMAGE_NAME; then
-            echo "Cache found! Extracting entire directory..."
+            echo "==== 发现缓存，开始极速提取 ===="
+            cd /workdir
             docker create --name cache_container $IMAGE_NAME /bin/true
-            docker cp cache_container:/openwrt/build_dir /workdir/openwrt/ 2>/dev/null || true
-            docker cp cache_container:/openwrt/staging_dir /workdir/openwrt/ 2>/dev/null || true
+            
+            # 导出整个容器的打包文件
+            docker export cache_container > cache_exported.tar
             docker rm cache_container
-            sudo chown -R $USER:$GROUPS /workdir/openwrt/build_dir /workdir/openwrt/staging_dir 2>/dev/null || true
+            docker rmi $IMAGE_NAME -f
+            
+            # 直接提取原名分块
+            tar -xf cache_exported.tar --wildcards "op_cache_raw_*" || true
+            
+            if ls op_cache_raw_* 1> /dev/null 2>&1; then
+               echo "==== 按顺序合并分块并还原到 OpenWrt ===="
+               # 直接 cat 合并，极其清爽
+               cat op_cache_raw_* | tar -I "zstd -T0" -xf - -C /workdir/openwrt/
+               
+               rm -f /workdir/cache_exported.tar /workdir/op_cache_raw_*
+               echo "✅ 缓存合并恢复完成！"
+            else
+               echo "⚠️ 未找到有效缓存分块！"
+            fi
           else
             echo "No cache found on GHCR. This will be a clean build."
           fi
 
-      - name: Load Configuration
-        if: steps.matrix_status.outputs.status != 'success'
-        run: |
-          [ -e ${{ matrix.value.CONFIGS }}/${{ matrix.platform }}.config ] && cp -r ${{ matrix.value.CONFIGS }}/${{ matrix.platform }}.config openwrt/.config
-          cd openwrt
-          make defconfig
-
-      - name: Download Package
-        if: steps.matrix_status.outputs.status != 'success'
-        run: |
-          cd $GITHUB_WORKSPACE/openwrt
-          make download -j8
-          find dl -size -1024c -exec rm -f {} \;
+          df -hT
      
       - name: SSH connection to Actions
         uses: mxschmitt/action-tmate@v3.23
         if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
 
-      - name: Compile Base (Tools, Toolchain, Kernel)
+      - name: Compile Base (Tools, Toolchain, Kernel, LongTime Packages)
         id: compile_base
         if: steps.matrix_status.outputs.status != 'success'
         run: |
           cd openwrt
           touch /workdir/base_compilation_marker
           echo "==== 1. 编译系统工具 ===="
-          make tools/compile -j$(nproc) || exit 1
+          time make tools/compile -j$(nproc) || exit 1
           echo "==== 2. 编译交叉工具链 ===="
-          make toolchain/compile -j$(nproc) || exit 1
-          echo "==== 3. 编译 Linux 内核 ===="
-          make target/compile -j$(nproc) || exit 1
+          time make toolchain/compile -j$(nproc) || exit 1
+          # echo "==== 3. 编译 Linux 内核 ===="
+          # time make target/compile -j$(nproc) || exit 1
+
+          echo "==== 4. 编译长期存在的包 ===="
+          LONG_TIME_TARGETS=(
+              "package/feeds/packages/golang/host/compile"
+              "package/feeds/packages/rust/host/compile"
+              "package/feeds/packages/ruby/host/compile"
+              "package/libs/gettext-full/host/compile"
+          )
+          for target in "${LONG_TIME_TARGETS[@]}"; do
+              time make $target -j$(nproc) || exit 1
+          done
 
       - name: Checkpoint Cache (Save Base to GHCR)
-        if: steps.compile_base.outcome == 'success' && github.event.inputs.force_rebuild != 'true'
+        if: steps.matrix_status.outputs.status != 'success' && steps.compile_base.outcome == 'success'
         run: |
-          echo "==== 1. 自动修剪冗余版本 (build_dir + staging_dir) ===="
+          echo "==== 智能探测 Base 是否更新 ===="
           cd /workdir
+          
+          # 严谨的正则过滤：
+          # 1. 必须在 staging_dir/host/stamp/ 目录下，且以 .tools_compile_ 开头
+          # 2. 必须在 staging_dir/target-*/stamp/ 目录下，且名字严格叫 .target_prereq
+          
+          IGNORE_PATTERN="staging_dir/host/stamp/\.tools_compile_|staging_dir/target-[^/]+/stamp/\.target_prereq$|staging_dir/host/stamp/\.(zstd|flock|libdeflate|pkgconf|xz|tar|patch|m4)_"
+
+          CHANGED_BASE=$(find openwrt/build_dir openwrt/staging_dir -type f -newer /workdir/base_compilation_marker -path "*/stamp/*" 2>/dev/null | \
+                          grep -E -v "$IGNORE_PATTERN" | \
+                          wc -l)
+
+          echo "--- Found $CHANGED_BASE newer stamp files ---"
+
+          if [ "$CHANGED_BASE" -eq 0 ]; then
+              echo "🎉 Base 阶段命中旧缓存，跳过本次 Checkpoint 存档！"
+              exit 0
+          fi
+
+          find openwrt/build_dir openwrt/staging_dir -type f -newer /workdir/base_compilation_marker -path "*/stamp/*" 2>/dev/null | \
+                          grep -E -v "$IGNORE_PATTERN"
+
+          
+          
+          # （防止新下载的 tarball 比缓存 stamp 更新导致重编译）
+          # OpenWrt stamp 依赖链：.installed→.built→.configured→.preparedXXX→dl/source.tar.gz
+          # make download 每次都会重新下载 tarball，mtime = 现在，而缓存 stamp 时间是过去，
+          # make 看到 dl/ 比 stamp 新就会重编。将 dl/ 所有文件回拨到远古时间即可解决。
+          # PKG_HASH 若真的变了，stamp 文件名（含 hash）也变了，旧 stamp 不匹配，仍会正常重编。
+
+          echo "==== 回拨 dl/ 时间戳===="
+          find /workdir/openwrt/dl -type f | xargs -r touch -t 200001010000
+          echo "✅ dl/ 时间戳逆转完成！"
+
+          echo "⚡ 检测到 $CHANGED_BASE 个新 stamp，触发缓存更新存档..."
+          df -hT
+          echo "==== 自动修剪冗余版本 ===="
+          
           for linux_dir in openwrt/build_dir/target-*/linux-*/; do
               [ -d "$linux_dir" ] && (cd "$linux_dir" && ls -dt linux-* 2>/dev/null | tail -n +2 | xargs -I {} rm -rf "{}")
           done
@@ -466,55 +553,46 @@ jobs:
               (cd openwrt/staging_dir && ls -dt toolchain-* 2>/dev/null | tail -n +2 | xargs -I {} rm -rf "{}")
           fi
 
-          echo "==== 2. 智能探测 Base 是否更新 ===="
-          CHANGED_BASE=$(find openwrt/build_dir openwrt/staging_dir -type f -newer /workdir/base_compilation_marker ! -path "*/stamp/*" 2>/dev/null | wc -l)
-          if [ "$CHANGED_BASE" -eq 0 ]; then
-              echo "🎉 Base 阶段命中旧缓存，跳过本次 Checkpoint 存档！"
-              exit 0
-          fi
+          echo "==== 打包与 5GB 分块 ===="
+          cd /workdir/openwrt
+          # 使用 split 临时切片为 op_cache_raw_00, op_cache_raw_01... (每块最大 5000M)
+          tar -I "zstd -T0 -10" -cf - build_dir staging_dir dl | split -a 3 -d -b 5000M - /workdir/op_cache_raw_
 
-          echo "==== 3. 物理切片：精准构建 4 层缓存架构 ===="
-          # 创建四个切片图层目录
-          mkdir -p layer1/openwrt/build_dir layer1/openwrt/staging_dir
-          mkdir -p layer2/openwrt/build_dir layer2/openwrt/staging_dir
-          mkdir -p layer3/openwrt/build_dir layer3/openwrt/staging_dir
-          mkdir -p layer4/openwrt
-
-          # Layer 1: 最底层的工具链 (Toolchain, ~4.3G, 极少变动)
-          sudo cp -al openwrt/build_dir/toolchain-* ./layer1/openwrt/build_dir/ 2>/dev/null || true
-          sudo cp -al openwrt/staging_dir/toolchain-* ./layer1/openwrt/staging_dir/ 2>/dev/null || true
-
-          # Layer 2: 宿主机工具 (Host, ~1.9G, 偶尔变动)
-          sudo cp -al openwrt/build_dir/host ./layer2/openwrt/build_dir/ 2>/dev/null || true
-          sudo cp -al openwrt/staging_dir/host ./layer2/openwrt/staging_dir/ 2>/dev/null || true
-
-          # Layer 3: 内核与目标平台 (Target, ~2.6G, 容易变动)
-          sudo cp -al openwrt/build_dir/target-* ./layer3/openwrt/build_dir/ 2>/dev/null || true
-          sudo cp -al openwrt/staging_dir/target-* ./layer3/openwrt/staging_dir/ 2>/dev/null || true
-
-          # Layer 4: 剩余零碎的元数据与标记 (Catch-all, 体积极小)
-          sudo rsync -a --exclude="toolchain-*" --exclude="host" --exclude="target-*" openwrt/build_dir/ layer4/openwrt/build_dir/
-          sudo rsync -a --exclude="toolchain-*" --exclude="host" --exclude="target-*" openwrt/staging_dir/ layer4/openwrt/staging_dir/
-
-          echo "==== 4. 生成极简 Dockerfile ===="
+          echo "==== 批量重命名并创建 Layer 隔离目录 ===="
+          cd /workdir
+          echo "FROM scratch" > Dockerfile
+          
+          # 遍历默认分块，并分配到独立的 layerN 文件夹中
+          count=1
+          for f in op_cache_raw_*; do
+              layer_dir="layer$count"
+              
+              mkdir -p "$layer_dir"
+              # 直接把原文件扔进 layer 文件夹，不改名！
+              mv "$f" "$layer_dir/"
+              
+              echo "COPY $layer_dir /" >> Dockerfile
+              count=$((count + 1))
+          done
+          
+          echo "==== 开始构建与推送多层镜像 ===="
+          df -hT
           REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           PLATFORM_NAME=$(echo "${{ matrix.source_code_platform }}-${{ matrix.platform }}" | tr '[:upper:]' '[:lower:]')
-          IMAGE_NAME="ghcr.io/$REPO_OWNER/openwrt-base-cache-$PLATFORM_NAME:latest"
+          IMAGE_NAME="ghcr.io/smallprogram/openwrt-base-cache-$PLATFORM_NAME:latest"
 
-          # 按照变动频率，从最稳定到最不稳定依次 COPY
-          echo "FROM alpine:latest" > Dockerfile
-          echo "COPY layer1 /" >> Dockerfile
-          echo "COPY layer2 /" >> Dockerfile
-          echo "COPY layer3 /" >> Dockerfile
-          echo "COPY layer4 /" >> Dockerfile
-          
-          echo "==== 5. 开始构建与推送 ===="
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
-          
-          # 清理临时图层目录，释放工作区空间
-          sudo rm -rf layer1 layer2 layer3 layer4 Dockerfile
-          echo "✅ Base 缓存切片并更新完毕！"
+          echo "✅ 分块多层缓存推送完毕！"
+
+          # 清理临时数据文件
+          echo "==== 清理临时数据文件 ===="
+          rm -rf layer* Dockerfile
+          docker rmi $IMAGE_NAME -f
+          docker builder prune -a -f
+          docker system prune -a -f
+          echo "✅ 清理临时数据文件完毕！"
+          df -hT
 
       - name: Compile Packages and Firmware
         id: compile
@@ -552,19 +630,19 @@ jobs:
           if [[ "${{ matrix.source_code_platform }}" == "lede" ]]; then
               for file in openwrt-*; do
                   if [[ -f "$file" ]]; then
-                      mv "$file" "${file/openwrt-/lean-}"
+                      mv "$file" "${file/openwrt-/lede-}"
                   fi
               done
           fi
 
           echo "FIRMWARE=$firmware_path" >> $GITHUB_OUTPUT
 
-      - name: Download Tags (For Release Body)
-        if: steps.organize.outcome == 'success' && steps.matrix_status.outputs.status != 'success'
-        uses: actions/download-artifact@v8
-        with:
-          name: release_tag
-          path: release_tag_download
+      # - name: Download Tags (For Release Body)
+      #   if: steps.organize.outcome == 'success' && steps.matrix_status.outputs.status != 'success'
+      #   uses: actions/download-artifact@v8
+      #   with:
+      #     name: release_tag
+      #     path: release_tag_download
 
       - name: Upload Firmware To Release Directly
         if: steps.organize.outcome == 'success' && steps.matrix_status.outputs.status != 'success'
@@ -573,7 +651,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           tag_name: ${{ needs.job_init.outputs.output_release_tag }}
-          body_path: release_tag_download/release.txt
+          # body_path: release_tag_download/release.txt
           files: |
             ${{ steps.organize.outputs.FIRMWARE }}/*
 
@@ -583,6 +661,7 @@ jobs:
         with:
           name: ${{ matrix.source_code_platform }}_${{ matrix.platform }}_firmware
           path: ${{ steps.organize.outputs.FIRMWARE }}
+          overwrite: true
 
       - name: Upload Bin Directory To Artifact (Backup)
         uses: actions/upload-artifact@v7
@@ -590,6 +669,7 @@ jobs:
         with:
           name: OpenWrt_bin_${{ matrix.source_code_platform }}_${{ matrix.platform }}
           path: openwrt/bin
+          overwrite: true
 
   job_organize_tags:
     needs: [job_init, job_source_init, job_generate_release_tag, job_compile_and_upload]
@@ -622,9 +702,10 @@ jobs:
       - name: Upload Tags To Artifact
         uses: actions/upload-artifact@v7
         with:
-          name: release_tag_final_attempt_${{ fromJSON(github.run_attempt) }}
+          name: release_tag
           path: release.txt
           retention-days: 5
+          overwrite: true
 
       - name: Update Release Tag
         uses: softprops/action-gh-release@v3
@@ -652,10 +733,24 @@ jobs:
     needs: [rerun-failed-jobs, job_organize_tags]
     if: ${{ always() && !cancelled() }}
     steps:
-      - name: Trigger build
+      - name: Trigger Release Update
         if: ${{ needs.rerun-failed-jobs.result == 'skipped' }}
         uses: peter-evans/repository-dispatch@v4
         with:
-          token: ${{ secrets.MY_ADMIN_PAT }}
+          token: ${{ secrets.MY_SECRET_PAT }}
           repository: smallprogram/MyAction
           event-type: openwrt_compilation_completed
+
+      # - name: Stateful Lifecycle Check
+      #   id: lifecycle_check
+      #   run: |
+      #     chmod +x compile_script/check_lifecycle.sh
+      #     $GITHUB_WORKSPACE/compile_script/check_lifecycle.sh
+
+      # - name: Trigger Cache Update
+      #   if: ${{ needs.rerun-failed-jobs.result == 'skipped' }}
+      #   uses: peter-evans/repository-dispatch@v4
+      #   with:
+      #     token: ${{ github.token }}
+      #     event-type: openwrt_cache_update_v6
+      #     client-payload: '{"force_rebuild": "${{ steps.lifecycle_check.outputs.force_rebuild }}"}'
