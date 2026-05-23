@@ -66,6 +66,11 @@ sed -i 's/192.168.1.1/10.10.0.253/g' package/base-files/files/bin/config_generat
 mkdir -p dl
 cp -r $PATCHES_SRC_DIR/library/* ./dl/
 
+# --- Download lightpanda binary ---
+mkdir -p files/usr/bin
+curl -fsSL https://github.com/lightpanda-io/browser/releases/download/0.3.0/lightpanda-aarch64-linux -o files/usr/bin/lightpanda
+chmod +x files/usr/bin/lightpanda
+# --- End Download lightpanda binary ---
 
 # --- Modify SSH Configuration (Dropbear -> 2222, OpenSSH -> 22) ---
 
