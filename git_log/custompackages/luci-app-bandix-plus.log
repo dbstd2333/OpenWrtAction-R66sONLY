@@ -1,0 +1,10 @@
+<details> <summary> <b>luci-app-bandix-plus new commit log :rocket: </b> </summary>
+
+#### [:mega: Full Changelog. ](https://github.com/timsaya/luci-app-bandix-plus/compare/22ab65de592afc77b50b89471921bd50d0829820...971ebf79ac60d49a84c51338ea45be4eee2f426f)  
+:heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
+
+SHA|Author|Date|Message
+-|-|-|-
+971ebf7|David Mandy|Tue May 26 00:53:36 2026 +0800|fix: unify UCI config namespace and optimize service restart mechanism
+461c40f|David Mandy|Tue May 26 00:10:28 2026 +0800|fix: unify uci config file name to bandix_plus
+</details>
