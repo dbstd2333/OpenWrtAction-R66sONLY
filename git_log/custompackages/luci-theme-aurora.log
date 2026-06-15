@@ -1,15 +1,25 @@
 <details> <summary> <b>luci-theme-aurora new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/eamonxg/luci-theme-aurora/compare/7e9048c4bba99485d3666f56399a2000e75e5ce1...6e8d7192cda3a80090712a33dd4da510afe4e0a0)  
+#### [:mega: Full Changelog. ](https://github.com/eamonxg/luci-theme-aurora/compare/6e8d7192cda3a80090712a33dd4da510afe4e0a0...62fef8ea4c89ec2218b58ac8aae26601f83299f8)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-6e8d719|Eamon|Sat Jun 6 10:42:02 2026 +0800|fix: ensure .hidden always hides elements regardless of specificity
-98cd7ab|Eamon|Fri Jun 5 16:29:32 2026 +0800|chore: update renovate config and remove pr-check workflow
-2b25873|Eamon|Fri Jun 5 16:01:24 2026 +0800|fix: resolve notification close button not dismissing alert messages
-69083f3|Eamon|Thu Jun 4 23:12:14 2026 +0800|ci: add Claude PR review bot workflow
-c4e7ab3|Eamon|Thu Jun 4 22:10:28 2026 +0800|fix: apply button shape styles to input[type=button/submit/reset] elements
-03d965b|Eamon|Thu Jun 4 20:09:09 2026 +0800|fix: restore transition-all animations stripped in perf refactor
-f8c0dac|Eamon|Tue Jun 2 19:42:28 2026 +0800|ci: add Claude issue bot workflow
+62fef8e|Eamon|Tue Jun 16 00:34:56 2026 +0800|fix: correct dropdown and mega-menu stacking
+1260f09|eamonxg|Tue Jun 16 00:09:52 2026 +0800|feat: three-column mega-menu with Tabler icons and unified nav pills (#76)
+ea5e561|eamonxg|Mon Jun 15 17:47:56 2026 +0800|feat: pill active state for unified sidebar navigation (#75)
+e961229|Eamon|Mon Jun 15 17:31:33 2026 +0800|ci: scope synchronize reviews to incremental diff, dedupe file-list lookup
+9852e12|Eamon|Mon Jun 15 16:12:44 2026 +0800|feat: unify sidebar navigation states
+7a106de|eamonxg|Mon Jun 15 13:06:42 2026 +0800|feat: generate Aurora design tokens from a flat OKLCH spec (#74)
+a0b7c0d|Eamon|Sat Jun 13 18:21:25 2026 +0800|feat: redesign mobile navigation
+f5b2bba|eamonxg|Sat Jun 13 16:10:49 2026 +0800|refactor: migrate Aurora to two-layer color tokens
+798174d|eamonxg|Fri Jun 12 17:52:51 2026 +0800|feat: constant-canvas mega menu with anchor column and device summary
+30ae6c6|eamonxg|Thu Jun 11 23:14:52 2026 +0800|perf: GPU-friendly animations & explicit transition properties (#69)
+9856c5b|eamonxg|Thu Jun 11 18:57:13 2026 +0800|Redesign sidebar as edge-attached accordion with grouped labels (#70)
+6f5a022|Eamon|Thu Jun 11 02:01:31 2026 +0800|feat: add sidebar navigation mode
+7d9f6a1|Eamon|Wed Jun 10 16:46:04 2026 +0800|refactor: merge _plugins.css into _patches.css and sync dev docs
+f61edc7|Eamon|Wed Jun 10 12:44:30 2026 +0800|ci: review source-only diff, exclude generated htdocs
+9bfbc26|Eamon|Wed Jun 10 11:52:43 2026 +0800|ci: add manual workflow_dispatch trigger to PR review
+
+
 </details>

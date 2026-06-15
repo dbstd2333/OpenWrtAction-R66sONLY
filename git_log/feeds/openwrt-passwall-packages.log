@@ -1,13 +1,9 @@
 <details> <summary> <b>openwrt-passwall-packages new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall-packages/compare/51dc9009a90909e58c7915f1fa8d0fe9fce1a1c0...4c2967c6511274d82a0dd099cf91d361c311fb59)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall-packages/compare/4c2967c6511274d82a0dd099cf91d361c311fb59...403eb75f2ceb7ff50443673d1b2b0faf4b21b568)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-4c2967c|David Mandy|Mon Jun 8 11:55:35 2026 +0800|sing-box: reset hash (#671)
-9e9ed6d|David Mandy|Thu Jun 4 22:01:32 2026 +0800|sing-box: update to 1.13.13 (#669)
-7189a36|David Mandy|Thu Jun 4 21:40:03 2026 +0800|v2ray-geosite: update to 202606032327 (#670)
-ad63a31|David Mandy|Thu Jun 4 21:39:46 2026 +0800|v2ray-geoip: update to 202606040101 (#668)
-cf2e235|David Mandy|Thu Jun 4 01:53:03 2026 +0800|remove unused packages - shadowsocks-libev - trojan-plus - tuic-client - update ci code
+403eb75|David Mandy|Sun Jun 14 19:41:34 2026 +0800|naiveproxy: update to 149.0.7827.114-1 (#674)
 </details>
