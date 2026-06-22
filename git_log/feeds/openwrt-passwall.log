@@ -1,12 +1,12 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/db0d4e6d050c4caaf40e8c86f7b0f22b477e53c0...ed7d31bcac2ee6268ea2182f225cd1f77ed85e07)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/ed7d31bcac2ee6268ea2182f225cd1f77ed85e07...aa31a6ddd90c4b321a1dadc4eeaa27fb69431312)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-ed7d31bc|A-BO|Fri Jun 12 00:16:55 2026 +0800|luci: adjust xray wireguard `kernelMode` to `noKernelTun`
-00e224e5|A-BO|Wed Jun 10 13:54:26 2026 +0800|luci: optimize shunt catch-all route
-9391ed43|A-BO|Wed Jun 10 00:23:20 2026 +0800|luci: optimize xray configuration
-961c8473|A-BO|Tue Jun 9 20:03:50 2026 +0800|luci: optimize hysteria2 realm
+aa31a6dd|A-BO|Mon Jun 22 17:51:09 2026 +0800|luci: add `vivo` connection detection url option
+3f21d0ff|ShanStone|Sun Jun 21 23:41:51 2026 +0800|luci: fix inline trailing comments for nftables IP rules (#4405)
+4b2f2b6e|zxl hhyccc|Sat Jun 20 19:07:22 2026 +0800|luci: Add `coreutils-timeout` depends，resolve certsha256 Fetch Failed. (#4404)
+a6b3e71d|linr|Fri Jun 19 23:19:37 2026 +0800|fix(subscribe): correctly handle Clash 'network: http' for Xray (#4403)
 </details>
