@@ -1,12 +1,18 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/ed7d31bcac2ee6268ea2182f225cd1f77ed85e07...aa31a6ddd90c4b321a1dadc4eeaa27fb69431312)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/aa31a6ddd90c4b321a1dadc4eeaa27fb69431312...f04c2c3f2fef157a200454c564d9a561cac650f3)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-aa31a6dd|A-BO|Mon Jun 22 17:51:09 2026 +0800|luci: add `vivo` connection detection url option
-3f21d0ff|ShanStone|Sun Jun 21 23:41:51 2026 +0800|luci: fix inline trailing comments for nftables IP rules (#4405)
-4b2f2b6e|zxl hhyccc|Sat Jun 20 19:07:22 2026 +0800|luci: Add `coreutils-timeout` depends，resolve certsha256 Fetch Failed. (#4404)
-a6b3e71d|linr|Fri Jun 19 23:19:37 2026 +0800|fix(subscribe): correctly handle Clash 'network: http' for Xray (#4403)
+f04c2c3f|A-BO|Mon Jun 29 20:03:07 2026 +0800|luci: update fragment new lengths/delays for xray
+2ac599d5|A-BO|Mon Jun 29 12:55:28 2026 +0800|luci: optimize trojan subscribe
+165efffb|A-BO|Sun Jun 28 23:49:04 2026 +0800|luci: optimize
+c79fa367|A-BO|Sun Jun 28 19:31:45 2026 +0800|luci: add github proxy for apps update
+5789ea4d|A-BO|Fri Jun 26 13:57:47 2026 +0800|luci: add hy2 gecko packet size subscribe
+c910a6b9|A-BO|Fri Jun 26 11:36:34 2026 +0800|luci: add hy2 gecko packet size setting
+04e003df|A-BO|Wed Jun 24 20:35:57 2026 +0800|luci: add realm url format validate
+03a2bbab|A-BO|Wed Jun 24 20:22:40 2026 +0800|luci: fix `parse_realm_uri` fun in api
+bb57a136|A-BO|Tue Jun 23 14:48:33 2026 +0800|luci: update default rules
+f878c5fb|A-BO|Tue Jun 23 11:14:03 2026 +0800|luci: fix realm of xray
 </details>
