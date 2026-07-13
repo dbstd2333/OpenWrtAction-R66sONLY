@@ -1,14 +1,19 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/f04c2c3f2fef157a200454c564d9a561cac650f3...20db1985ce894be8669ec4c7e557eed57d0853d9)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/20db1985ce894be8669ec4c7e557eed57d0853d9...bf1037ce3edf303dd8104819f7e31ba7ce280996)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-20db1985|ShanStone|Mon Jul 6 22:04:21 2026 +0800|luci: eliminate tr process in insert_nftset function
-797704c5|wybb|Mon Jul 6 01:07:20 2026 +0800|luci: fix hy2 link import bandwidth defaults (#4414)
-22450c2a|lwb1978|Sat Jul 4 19:38:53 2026 +0800|luci: fix and optimize subscribe
-59024567|David Mandy|Wed Jul 1 00:56:46 2026 +0800|ci: optimize code (#4411)
-2142d1f1|A-BO|Tue Jun 30 23:47:40 2026 +0800|luci: 26.7.1
-4633ee7b|A-BO|Tue Jun 30 23:32:12 2026 +0800|luci: Disable IPv4 rp_filter for TPROXY compatibility
+bf1037ce|A-BO|Mon Jul 13 16:43:17 2026 +0800|luci: add default value for xray fragment
+feb14282|A-BO|Mon Jul 13 00:47:17 2026 +0800|luci: add OR logic support to node rule matching
+6f0873c5|A-BO|Sun Jul 12 23:22:49 2026 +0800|luci: optimize and adjust
+a49686d1|ShanStone|Sun Jul 12 22:09:57 2026 +0800|luci: typo iptables.sh
+a961328b|ShanStone|Sun Jul 12 21:38:32 2026 +0800|luci; clean up shell syntax typos
+6b9ff417|ShanStone|Sun Jul 12 21:19:27 2026 +0800|luci: enhance efficiency of insert_nftset
+adab49f7|A-BO|Sat Jul 11 15:47:46 2026 +0800|luci: xray add min version limit
+7e5c8de9|A-BO|Sat Jul 11 15:34:23 2026 +0800|luci: xray add env configuration
+d6bffb73|A-BO|Sat Jul 11 14:35:52 2026 +0800|luci: add `unsafe` fingerprint to xray settings
+225f017c|A-BO|Thu Jul 9 11:39:37 2026 +0800|luci: remove `none/zero/plain` for xray vmess/shadowsocks
+31000944|A-BO|Wed Jul 8 16:09:03 2026 +0800|luci: fix sing-box grpc/http/hy2 timeout format
 </details>

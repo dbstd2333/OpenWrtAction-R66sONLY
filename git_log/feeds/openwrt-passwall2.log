@@ -1,9 +1,25 @@
 <details> <summary> <b>openwrt-passwall2 new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall2/compare/20a2f311084608c14b23404c11caa13ffbbb9db0...ec458173608880fcc40af738761206afc7328125)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall2/compare/ec458173608880fcc40af738761206afc7328125...ffebe0996548e7206fa9afd9a296cee41f7935cf)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-ec45817|m3m0ry|Sat Jul 4 19:40:56 2026 +0800|luci: preserve Reality options for AnyTLS subscriptions (#1174)
+ffebe09|A-BO|Mon Jul 13 11:11:05 2026 +0800|luci: optimize `match_node_rule` fun
+34ba328|ShanStone|Sun Jul 12 21:19:27 2026 +0800|luci: enhance efficiency of insert_nftset
+8891647|TeleostNaCl|Mon Jul 13 00:42:44 2026 +0800|luci: add OR logic support to node rule matching (#1180)
+2810398|handsomeji|Sun Jul 12 18:47:42 2026 +0800|ci: update
+3563a80|handsomeji|Sun Jul 12 17:37:25 2026 +0800|luci: 26.7.12
+c543c19|A-BO|Sat Jul 11 15:47:46 2026 +0800|luci: xray add min version limit
+36f47ec|A-BO|Sat Jul 11 15:34:23 2026 +0800|luci: xray add env configuration
+c9fee93|A-BO|Sat Jul 11 14:35:52 2026 +0800|luci: add `unsafe` fingerprint to xray settings
+ecf7024|A-BO|Thu Jul 9 11:39:37 2026 +0800|luci: remove `none/zero/plain` for xray vmess/shadowsocks
+9511b7f|A-BO|Wed Jul 8 16:09:03 2026 +0800|luci: fix sing-box grpc/http/hy2 timeout format
+66e5987|ShanStone|Mon Jul 6 22:04:21 2026 +0800|luci: eliminate tr process in insert_nftset function
+9add422|lwb1978|Sat Jul 4 19:38:53 2026 +0800|luci: fix and optimize subscribe
+1e1395a|handsomeji|Sun Jul 12 17:49:57 2026 +0800|luci: direct IP list support geoip
+163a4ab|handsomeji|Fri Jul 3 20:32:36 2026 +0800|luci: add direct IP list option
+11606fe|handsomeji|Sun Jul 12 17:32:07 2026 +0800|luci: optimize and adjust
+
+
 </details>
