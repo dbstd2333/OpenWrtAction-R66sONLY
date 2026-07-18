@@ -42,7 +42,62 @@ Func_LogError() {
         echo -e "${Begin}$2${End}"
     fi
 }
-# DIY Script函数
+
+
+
+# 编译时间函数 打印编译日志内容并计算输出总耗时
+# ==========================================
+# 参  数: $1 - 编译日志的绝对路径
+# ==========================================
+Func_Show_Compile_Time() {
+    # 接收传入的文件路径参数
+    local log_file="$1"
+
+    # 1. 检查文件是否存在
+    if [ ! -f "$log_file" ]; then
+        echo "错误：找不到文件 $log_file"
+        return 1 # 在函数中使用 return 而不是 exit，避免中断整个主脚本
+    fi
+
+    # 2. 打印文件内容
+    echo "================ 编译时间日志内容 ================"
+    cat "$log_file"
+    echo "=============================================="
+    echo ""
+
+    # 3. 提取时间字符串
+    local start_str=$(grep "开始时间" "$log_file" | sed 's/开始时间//')
+    local end_str=$(grep "结束时间" "$log_file" | sed 's/结束时间//')
+
+    # 异常处理：确保成功提取到了时间
+    if [ -z "$start_str" ] || [ -z "$end_str" ]; then
+        echo "错误：日志格式不匹配，未能提取到完整的开始或结束时间。"
+        return 1
+    fi
+
+    # 4. 将时间格式转换
+    local start_fmt=$(echo "$start_str" | sed -E 's/([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2})-([0-9]{2})-([0-9]{2})/\1 \2:\3:\4/')
+    local end_fmt=$(echo "$end_str" | sed -E 's/([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2})-([0-9]{2})-([0-9]{2})/\1 \2:\3:\4/')
+
+    # 5. 转换为 Unix 时间戳 (秒)
+    local start_ts=$(date -d "$start_fmt" +%s)
+    local end_ts=$(date -d "$end_fmt" +%s)
+
+    # 6. 计算时间差
+    local diff=$((end_ts - start_ts))
+
+    # 7. 计算小时、分钟、秒
+    local hours=$((diff / 3600))
+    local minutes=$(((diff % 3600) / 60))
+    local seconds=$((diff % 60))
+
+    # 8. 格式化输出
+    if [ "$hours" -gt 0 ]; then
+        echo ">> 编译总耗时: ${hours}小时 ${minutes}分钟 ${seconds}秒"
+    else
+        echo ">> 编译总耗时: ${minutes}分钟 ${seconds}秒"
+    fi
+}
 
 
 Func_Copy_Backgroundfiles() {
@@ -90,8 +145,8 @@ Func_SyncCodeToGitLogTime(){
         cd /home/${user_name}/${openwrt_dir}
     done
     
-    find /home/${user_name}/${openwrt_dir}/dl -type f | xargs -r touch -t 200001010000
-    Func_LogSuccess "-> 处理DL目录时间戳完成" "-> Git repository processing completed"
+    # find /home/${user_name}/${openwrt_dir}/dl -type f | xargs -r touch -t 200001010000
+    # Func_LogSuccess "-> 处理DL目录时间戳完成" "-> Git repository processing completed"
 }
 
 # 编译报错检查函数
@@ -194,13 +249,13 @@ Func_CleanCompile(){
     Func_LogMessage "将会在$timer秒后自动选择默认值" "The default value will be automatically selected after $timer seconds"
     read -t $timer is_clean_compile
     if [ ! -n "$is_clean_compile" ]; then
-        Func_LogMessage "不执行make clean && make dirclean " "OK, do not execute make clean && make dirclean "
+        Func_LogMessage "不执行Clean操作 " "OK, do not execute Clean operation "
     else
-        Func_LogMessage "配置为Clean编译。执行make clean && make dirclean" "OK, configure for Clean compilation."
+        Func_LogMessage "配置为Clean编译。执行Clean操作" "OK, configure for Clean compilation."
         # make clean
         # make dirclean
         make distclean
-        Func_LogSuccess "执行make clean && make dirclean完毕，准备开始编译" "Ready to compile"
+        Func_LogSuccess "执行Clean操作完毕，准备开始编译" "Ready to compile"
         sleep 1s
     fi
     Func_LogMessage "创建编译日志文件夹/home/${user_name}/${log_folder_name}/${folder_name}" "Create compilation log folder /home/${user_name}/${log_folder_name}/${folder_name}"
@@ -266,8 +321,17 @@ Func_FeedsUpdate() {
     sleep 1
     ./scripts/feeds update -a | tee -a /home/${user_name}/${log_folder_name}/${folder_name}/Func_Main1_feeds_update-git_log.log
     echo
+}
 
-    Func_LogMessage "开始 install feeds..." "Installing feeds..."
+Func_FeedsInstall() {
+    cd /home/${user_name}/${openwrt_dir}
+
+    Func_LogMessage "开始 update -i feeds..." "update -i feeds ..."
+    sleep 1
+    ./scripts/feeds update -i | tee -a /home/${user_name}/${log_folder_name}/${folder_name}/Func_Main1_feeds_update-i-git_log.log
+    echo
+
+    Func_LogMessage "开始安装feeds..." "Starting to install feeds..."
     sleep 1
     ./scripts/feeds install -a | tee -a /home/${user_name}/${log_folder_name}/${folder_name}/Func_Main2_feeds_install-git_log.log
     echo
@@ -282,6 +346,18 @@ Func_DIY2_Script() {
     bash ../OpenWrtAction/$diy_script_2
 
     Func_LogSuccess "DIY2脚本执行完成" "DIY script execution completed"
+    sleep 2s
+}
+
+
+Func_DIY3_Script() {
+    cd /home/${user_name}/${openwrt_dir}
+    Func_LogMessage "开始执行DIY3设置脚本" "Start executing the DIY3 setup script"
+    sleep 1s
+
+    bash ../OpenWrtAction/$diy_script_3
+
+    Func_LogSuccess "DIY3脚本执行完成" "DIY script execution completed"
     sleep 2s
 }
 
@@ -313,6 +389,46 @@ Func_Defconfig(){
     diff /home/${user_name}/${log_folder_name}/${folder_name}/.config_old /home/${user_name}/${log_folder_name}/${folder_name}/.config_new -y -W 200 >/home/${user_name}/${log_folder_name}/${folder_name}/.config_diff
 
 }
+
+# make Compile Base (Tools, Toolchain, Kernel, LongTime Packages)
+# Func_MakeBase(){
+#     # cd /home/${user_name}/${openwrt_dir}
+#     Func_LogMessage "开始执行make base!" "Start to execute make base!"
+#     sleep 1s
+
+#     echo "==== 1. 下载系统工具源码 ===="
+#     time make tools/download -j8 || exit 1
+#     echo "==== 1. 编译系统工具 ===="
+#     time make tools/compile -j$(nproc) || exit 1
+
+#     echo "==== 2. 下载交叉工具链源码 ===="
+#     time make toolchain/download -j8 || exit 1
+#     echo "==== 2. 编译交叉工具链 ===="
+#     time make toolchain/compile -j$(nproc) || exit 1
+
+#     # echo "==== 3. 下载 Linux 内核源码 ===="
+#     # time make target/download -j8 || exit 1
+#     # echo "==== 3. 编译 Linux 内核 ===="
+#     # time make target/compile -j$(nproc) || exit 1
+
+#     echo "==== 4. 下载长期存在的包源码 ===="
+#     LONG_TIME_TARGETS=(
+#         "package/feeds/packages/golang/host/download"
+#         "package/feeds/packages/rust/host/download"
+#         "package/feeds/packages/ruby/host/download"
+#         "package/libs/gettext-full/host/download"
+#     )
+#     for target in "${LONG_TIME_TARGETS[@]}"; do
+#         echo "==== 4. 下载${target}包 ===="
+#         time make $target -j8 || exit 1
+#         echo "==== 4. 编译${target}包 ===="
+#         time make $target -j$(nproc) || exit 1
+#     done
+
+#     echo "==== 局部下载编译完成！ ===="
+#     is_complie_error=${PIPESTATUS[0]}
+#     Func_Check_Compile_Error "$is_complie_error" "make base"
+# }
 
 # make download函数
 Func_MakeDownload() {
@@ -473,6 +589,8 @@ Func_MakeFirmware() {
 
     end_date=结束时间$(date "+%Y-%m-%d-%H-%M-%S")
     echo -e $end_date >>/home/${user_name}/${log_folder_name}/${folder_name}/Func_Main6_Compile_Time-git_log.log
+
+    Func_Show_Compile_Time "/home/${user_name}/${log_folder_name}/${folder_name}/Func_Main6_Compile_Time-git_log.log"
 }
 
 # 编译函数
@@ -489,6 +607,10 @@ Func_Compile_Firmware() {
     Func_FeedsUpdate
 
     Func_DIY2_Script
+
+    Func_FeedsInstall
+
+    Func_DIY3_Script
 
     Func_Copy_Backgroundfiles "1" "${config_name}"
 
@@ -694,6 +816,8 @@ Func_Main() {
             Func_DIY1_Script
             Func_FeedsUpdate
             Func_DIY2_Script
+            Func_FeedsInstall
+            Func_DIY3_Script
             Func_Copy_Backgroundfiles "1" "${config_name}"
 
             echo
@@ -784,9 +908,9 @@ Func_Main() {
             done
 
             if [[ $num_continue == 1 ]]; then
-                
+
                 Func_Defconfig "false"
-                
+     
                 Func_MakeDownload
 
                 Func_SyncCodeToGitLogTime
@@ -823,6 +947,8 @@ Func_Main() {
         Func_DIY1_Script
         Func_FeedsUpdate
         Func_DIY2_Script
+        Func_FeedsInstall
+        Func_DIY3_Script
         rm -rf .config
         make menuconfig
 
@@ -887,7 +1013,7 @@ Func_Main() {
             Func_Copy_Backgroundfiles "1" "${config_name}"
 
             Func_Defconfig "true"
-            
+
             Func_MakeDownload
 
             Func_SyncCodeToGitLogTime

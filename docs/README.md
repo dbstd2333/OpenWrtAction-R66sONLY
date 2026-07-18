@@ -172,7 +172,7 @@ CONFIG_PACKAGE_luci-theme-openwrt-2020=y
 
 ### 🚀 luci-app-ghfu
 
-You can directly update to the latest firmware from this repository via LuCI, thereby bypassing the tedious manual update process. For more details, please refer to https://github.com/smallprogram/luci-app-ghfu.
+You can directly update to the latest firmware from this repository via LuCI, thereby bypassing the tedious manual update process. For more details, please refer to https://github.com/smallprogram/openwrt-ghfu.
 
 ![alt text](pic/ghfu/en.png)
 
@@ -183,7 +183,7 @@ You can directly update to the latest firmware from this repository via LuCI, th
 [![Star History Chart](https://api.star-history.com/svg?repos=smallprogram/OpenWrtAction&type=Date)](https://star-history.com/#smallprogram/OpenWrtAction&Date)
 
 ---
-
+ 
 ## 🔗 Quick Jump
 #### [🧭 Latest firmware list, click to get it](https://github.com/smallprogram/OpenWrtAction/tags)
 #### [🧭 R1 Soft Router Installation ESXi 8.0 Tutorial](R1_ESXI8.md)

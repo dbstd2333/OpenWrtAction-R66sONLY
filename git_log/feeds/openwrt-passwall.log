@@ -1,12 +1,24 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/0ce6d79b5104ea233a3a1592481a416b4d92a29c...cf6991efc22a3fe7860749ca15c62629f30fbe2d)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/adab49f79df24d759efc90c2ad3f817fa6d511bc...3f7695d6b453a111d2ca9b8e9aa05d7e8a843b68)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-cf6991ef|A-BO|Fri May 22 11:26:12 2026 +0800|luci: optimize smartdns status display
-fb4c198a|A-BO|Thu May 21 00:59:12 2026 +0800|luci: add hysteria(2) default bandwidth value for subscribe
-47ec87c4|A-BO|Thu May 21 00:33:40 2026 +0800|luci: exclude illegal node ip
-d9373af2|A-BO|Wed May 20 15:37:54 2026 +0800|luci: 26.5.20
+3f7695d6|A-BO|Thu Jul 16 21:40:01 2026 +0800|luci: 26.7.16
+20fd7808|handsomeji|Thu Jul 16 00:31:11 2026 +0800|luci: optimize code
+ef0df88c|A-BO|Thu Jul 16 17:21:59 2026 +0800|luci: adjust and optimize
+6770f11b|A-BO|Thu Jul 16 13:36:59 2026 +0800|luci: support manual fetch of xray hy2 `pinnedPeerCertSha256`
+c8ce288e|A-BO|Thu Jul 16 13:19:18 2026 +0800|luci: fixup
+cf813135|A-BO|Wed Jul 15 17:17:54 2026 +0800|luci: add ech support in trojan link sharing and subscription
+f075d6ec|A-BO|Wed Jul 15 12:59:00 2026 +0800|luci: 26.7.15
+3c107355|A-BO|Wed Jul 15 12:56:52 2026 +0800|luci: remove xray `allowInsecure`
+a44717e7|A-BO|Wed Jul 15 12:46:23 2026 +0800|luci: xray inbound reality add `minClientVer`
+7df94111|A-BO|Tue Jul 14 22:52:24 2026 +0800|luci: add batch backup node support for socks
+bf1037ce|A-BO|Mon Jul 13 16:43:17 2026 +0800|luci: add default value for xray fragment
+feb14282|A-BO|Mon Jul 13 00:47:17 2026 +0800|luci: add OR logic support to node rule matching
+6f0873c5|A-BO|Sun Jul 12 23:22:49 2026 +0800|luci: optimize and adjust
+a49686d1|ShanStone|Sun Jul 12 22:09:57 2026 +0800|luci: typo iptables.sh
+a961328b|ShanStone|Sun Jul 12 21:38:32 2026 +0800|luci; clean up shell syntax typos
+
 </details>

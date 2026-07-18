@@ -55,6 +55,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Read Platforms From File
         id: read-platforms
@@ -86,6 +87,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Clone Source Code
         working-directory: /workdir
@@ -102,16 +104,9 @@ jobs:
           cat feeds.conf.default
 
       - name: Update Feeds
-        run: cd openwrt && ./scripts/feeds update -a
-
-      - name: Install Feeds
-        run: cd openwrt && ./scripts/feeds install -a
-
-      - name: Pull the latest changes and Create temporary branch
         run: |
-          git fetch origin
-          git reset --hard origin/${{ github.ref_name }}
-          git checkout -b temp-${{ matrix.source_code_platform }}
+          cd openwrt
+          ./scripts/feeds update -a
 
       - name: Run DIY Part 2 Script
         run: |
@@ -119,11 +114,30 @@ jobs:
           cd openwrt
           $GITHUB_WORKSPACE/${{ matrix.value.DIY_P2_SH }}
 
+      - name: Install Feeds
+        run: |
+          cd openwrt
+          ./scripts/feeds update -i
+          ./scripts/feeds install -a
+      
+      - name: Run DIY Part 3 scripts
+        run: |
+          chmod +x $GITHUB_WORKSPACE/${{ matrix.value.DIY_P3_SH }} || true
+          cd openwrt
+          $GITHUB_WORKSPACE/${{ matrix.value.DIY_P3_SH }}
+
+      - name: Create temporary branch
+        run: |
+          git checkout -b temp-${{ matrix.source_code_platform }}
+
+
+
       - name: Make Defconfig Custom Configuration
         run: |
           chmod +x compile_script/step01_make_defconfig.sh
           cd openwrt
           $GITHUB_WORKSPACE/compile_script/step01_make_defconfig.sh "${{ matrix.source_code_platform }}" "${{ matrix.value.CONFIGS }}"
+
 
       - name: Merge and push changes with "theirs" strategy
         run: |
@@ -135,21 +149,36 @@ jobs:
             git config user.email "smallprogram@foxmail.com"
             git commit -m "Configuration: update code for ${{ matrix.source_code_platform }}"
 
-            git checkout ${{ github.ref_name }}
-            git fetch origin
-            git reset --hard origin/${{ github.ref_name }}
-
-            git checkout temp-${{ matrix.source_code_platform }}
-            git merge origin/${{ github.ref_name }} --no-ff --strategy-option theirs --no-edit || {
-              echo "Merge conflict in temp branch, please resolve manually."
+            MAX_RETRIES=10
+            RETRY_COUNT=0
+            
+            # 循环重试机制解决矩阵并发 Push 冲突
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              git checkout ${{ github.ref_name }}
+              git fetch origin ${{ github.ref_name }}
+              git reset --hard origin/${{ github.ref_name }}
+              
+              # 合并当前的临时分支
+              git merge temp-${{ matrix.source_code_platform }} --strategy-option theirs --no-edit
+              
+              if git push origin ${{ github.ref_name }}; then
+                echo "Push successful!"
+                break
+              else
+                echo "Push failed due to concurrent update. Retrying in a few seconds..."
+                git reset --hard HEAD~1
+                RETRY_COUNT=$((RETRY_COUNT+1))
+                sleep $((RANDOM % 5 + 3)) # 随机等待 3-7 秒错开并发
+              fi
+            done
+            
+            if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+              echo "Failed to push after $MAX_RETRIES attempts."
               exit 100
-            }
+            fi
 
-            git checkout ${{ github.ref_name }} 
-            git merge temp-${{ matrix.source_code_platform }} --strategy-option theirs --no-edit
-            git push origin ${{ github.ref_name }} --force
-            git branch -d temp-${{ matrix.source_code_platform }} || echo "Local temp-${{ matrix.source_code_platform }} not found"
-            git push origin --delete temp-${{ matrix.source_code_platform }} || echo "Remote temp-${{ matrix.source_code_platform }} not found"
+            # 只删除本地临时分支
+            git branch -D temp-${{ matrix.source_code_platform }} || echo "Local temp branch not found"
           else
             echo "No changes to commit."
           fi
@@ -208,11 +237,10 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
-      - name: Pull the latest changes and Create temporary branch
+      - name: Create temporary branch
         run: |
-          git fetch origin
-          git reset --hard origin/${{ github.ref_name }}
           git checkout -b temp-tag-gitlog
 
       - name: Download Git Log From Artifacts
@@ -261,16 +289,35 @@ jobs:
             git config user.name "smallprogram"
             git config user.email "smallprogram@foxmail.com"
             git commit -m "Git Log: update code"
-            git checkout ${{ github.ref_name }}
-            git fetch origin
-            git reset --hard origin/${{ github.ref_name }}
-            git checkout temp-tag-gitlog
-            git merge origin/${{ github.ref_name }} --no-ff --strategy-option theirs --no-edit || { exit 100; }
-            git checkout ${{ github.ref_name }} 
-            git merge temp-tag-gitlog --strategy-option theirs --no-edit
-            git push origin ${{ github.ref_name }} --force
-            git branch -d temp-tag-gitlog || echo "Local temp-tag-gitlog not found"
-            git push origin --delete temp-tag-gitlog || echo "Remote temp-tag-gitlog not found"
+            
+            MAX_RETRIES=10
+            RETRY_COUNT=0
+            
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              git checkout ${{ github.ref_name }}
+              git fetch origin ${{ github.ref_name }}
+              git reset --hard origin/${{ github.ref_name }}
+              
+              git merge temp-tag-gitlog --strategy-option theirs --no-edit
+              
+              if git push origin ${{ github.ref_name }}; then
+                echo "Push successful!"
+                break
+              else
+                echo "Push failed. Retrying..."
+                git reset --hard HEAD~1
+                RETRY_COUNT=$((RETRY_COUNT+1))
+                sleep $((RANDOM % 5 + 3))
+              fi
+            done
+            
+            if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+              echo "Failed to push git log after $MAX_RETRIES attempts."
+              exit 100
+            fi
+            
+            # 只删除本地临时分支
+            git branch -D temp-tag-gitlog || echo "Local temp-tag-gitlog not found"
           else
             echo "No changes to commit."
           fi
@@ -278,7 +325,7 @@ jobs:
   job_compile_and_upload:
     needs: [job_init, job_source_init, job_generate_release_tag]
     runs-on: ${{ matrix.value.OS }}
-    if: ${{ always() && !cancelled() }} 
+    if: ${{ !cancelled() && needs.job_source_init.result == 'success' && needs.job_generate_release_tag.result == 'success' }}
     strategy:
       fail-fast: false
       matrix:
@@ -290,6 +337,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Matrix Status
         id: matrix_status
@@ -391,24 +439,6 @@ jobs:
           cd openwrt
           make defconfig
 
-      - name: Download Package
-        if: steps.matrix_status.outputs.status != 'success'
-        run: |
-          cd $GITHUB_WORKSPACE/openwrt
-          # 设置重试次数，比如 3 次
-          for i in {1..3}; do
-            echo "开始第 $i 次尝试执行 make download..."
-            
-            timeout 8m make download -j8 && break || echo "第 $i 次尝试超时或失败，准备重试..."
-            
-            # 在最后一次尝试失败后，手动抛出错误退出
-            if [ $i -eq 3 ]; then
-              echo "经过 3 次尝试后依然失败，停止执行。"
-              exit 1
-            fi
-
-          done
-
       - name: Git Restore Mtime (True SSoT) And DL Restore Time
         if: steps.matrix_status.outputs.status != 'success'
         run: |
@@ -436,7 +466,7 @@ jobs:
 
       - name: Restore Entire OpenWrt Cache from GHCR
         id: restore_cache
-        if: steps.matrix_status.outputs.status != 'success' && github.event.inputs.force_rebuild != 'true'
+        if: steps.matrix_status.outputs.status != 'success' && fromJSON(github.run_attempt) < 3  && github.event.inputs.force_rebuild != 'true'
         run: |
 
           df -hT
@@ -484,22 +514,48 @@ jobs:
         run: |
           cd openwrt
           touch /workdir/base_compilation_marker
-          echo "==== 1. 编译系统工具 ===="
-          time make tools/compile -j$(nproc) || exit 1
-          echo "==== 2. 编译交叉工具链 ===="
-          time make toolchain/compile -j$(nproc) || exit 1
+
+          echo "==== 开始download ===="
+
+          LONG_TIME_TARGETS_DOWNLOAD=(
+              "tools/download"
+              "toolchain/download"
+              # "package/feeds/packages/golang/host/download"
+              # "package/feeds/packages/rust/host/download"
+              # "package/feeds/packages/ruby/host/download"
+              # "package/libs/gettext-full/host/download"
+          )
+          for target in "${LONG_TIME_TARGETS_DOWNLOAD[@]}"; do
+              echo "==== 正在执行 download $target ===="
+              make $target -j1 || exit 1
+              sleep 5
+              echo "------------------------"
+          done
+
+
           # echo "==== 3. 编译 Linux 内核 ===="
           # time make target/compile -j$(nproc) || exit 1
 
-          echo "==== 4. 编译长期存在的包 ===="
-          LONG_TIME_TARGETS=(
-              "package/feeds/packages/golang/host/compile"
-              "package/feeds/packages/rust/host/compile"
-              "package/feeds/packages/ruby/host/compile"
-              "package/libs/gettext-full/host/compile"
+          echo "==== 编译包 ===="
+          LONG_TIME_TARGETS_COMPILE=(
+              "tools/compile"
+              "toolchain/compile"
+              # "package/feeds/packages/golang/host/compile"
+              # "package/feeds/packages/rust/host/compile"
+              # "package/feeds/packages/ruby/host/compile"
+              # "package/libs/gettext-full/host/compile"
           )
-          for target in "${LONG_TIME_TARGETS[@]}"; do
-              time make $target -j$(nproc) || exit 1
+          for target in "${LONG_TIME_TARGETS_COMPILE[@]}"; do
+              echo "==== 正在执行 compile $target ===="
+              if [[ ${{ fromJSON(github.run_attempt) }} == 3 ]]; then
+                  time make $target -j$(nproc) V=s || exit 1
+                  sleep 5
+                  echo "------------------------"
+              else
+                  time make $target -j$(nproc) || exit 1
+                  sleep 5
+                  echo "------------------------"
+              fi
           done
 
       - name: Checkpoint Cache (Save Base to GHCR)
@@ -594,13 +650,30 @@ jobs:
           echo "✅ 清理临时数据文件完毕！"
           df -hT
 
+      - name: Download Package
+        if: steps.matrix_status.outputs.status != 'success' && !cancelled()
+        run: |
+          cd $GITHUB_WORKSPACE/openwrt
+          # 设置重试次数，比如 3 次
+          for i in {1..3}; do
+            echo "开始第 $i 次尝试执行 make download..."
+            
+            timeout 8m make download -j8 && break || echo "第 $i 次尝试超时或失败，准备重试..."
+            
+            # 在最后一次尝试失败后，手动抛出错误退出
+            if [ $i -eq 3 ]; then
+              echo "经过 3 次尝试后依然失败，停止执行。"
+              exit 1
+            fi
+
+          done
       - name: Compile Packages and Firmware
         id: compile
         if: steps.matrix_status.outputs.status != 'success' && !cancelled()
         run: |
           cd openwrt
           df -h
-          # chmod +x $GITHUB_WORKSPACE/${{ matrix.value.DIY_P3_SH }} || true
+          
 
           if [[ ${{ fromJSON(github.run_attempt) }} == 3 ]]; then
               make -j$(nproc) V=s
@@ -673,7 +746,7 @@ jobs:
 
   job_organize_tags:
     needs: [job_init, job_source_init, job_generate_release_tag, job_compile_and_upload]
-    if: ${{ always() && !cancelled() }} 
+    if: ${{ !cancelled() && needs.job_source_init.result == 'success' && needs.job_generate_release_tag.result == 'success' }}
     runs-on: ubuntu-latest
     name: Organize-Release-Tags
     outputs:
@@ -684,6 +757,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Pull the latest changes
         run: git pull origin ${{ github.ref_name }}

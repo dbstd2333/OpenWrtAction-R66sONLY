@@ -1,19 +1,25 @@
 <details> <summary> <b>packages new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/openwrt/packages/compare/191f5bf9c11188f376f81814bc0098741f39ff4f...66ab3f7728dfcce93877db3d3d12f2a66fe4d682)  
+#### [:mega: Full Changelog. ](https://github.com/openwrt/packages/compare/2e291e7dc84113592405ecd1d4b3c6ff9b74ac44...9fd16b1c1c5288818caf4f7ecef1e3a815a2f29c)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-66ab3f772|Alexandru Ardelean|Sun May 10 12:05:25 2026 +0300|fatresize: fix PKG_MIRROR_HASH after .gitattributes change
-decd737cf|Josef Schlehofer|Tue May 5 09:17:26 2026 +0200|gots_engine: fix PKG_MIRROR_HASH
-535f243e2|Dirk Brenken|Wed May 20 22:51:35 2026 +0200|adblock: update 4.5.5-5
-ce34a673e|Jens Wagner|Fri May 15 19:21:29 2026 +0200|mbpoll: update to 1.5.4
-d4ee8d285|Fotios Kitsantas|Sun May 10 14:22:55 2026 +0100|ddns-scripts: add blazingfast.io Anycast DNS provider
-aa81ad643|Alexandru Ardelean|Wed May 20 11:22:31 2026 +0300|perl: fix miniperl missing execute permission (CI fix)
-e252ed0f7|Jens Wagner|Fri May 15 18:00:06 2026 +0200|perl: fix missing line numbers in error messages
-d3d632540|Alexandru Ardelean|Wed May 13 09:22:24 2026 +0300|perl: add test-version.sh to skip version check
-3de0e4b1c|Jens Wagner|Fri May 15 19:48:40 2026 +0200|perl-io-socket-ssl: update to 2.098
-4e222e562|Jens Wagner|Fri Jan 2 14:56:33 2026 +0100|perlbase-encode: added dependency on perlbase-storable
-8a796bbe3|Jens Wagner|Fri May 15 18:01:35 2026 +0200|perl: fix dependency issues in archive, pod and test
+9fd16b1c1|Alexandru Ardelean|Thu Apr 16 21:12:30 2026 +0300|python3-drf-nested-routers: update to 0.95.0; add test.sh
+07151fd2f|Alexandru Ardelean|Thu Apr 9 08:25:38 2026 +0300|python3-django-restframework: update to 3.17.1
+759dddafd|Alexandru Ardelean|Thu Apr 16 21:15:27 2026 +0300|python3-django-cors-headers: update to 4.9.0; add test.sh
+d5540bad1|Wei-Ting Yang|Thu Jul 9 21:18:36 2026 +0800|django: bump to version 6.0.7
+b6d250658|Wei-Ting Yang|Thu Jun 4 19:48:43 2026 +0800|django: bump to version 6.0.6
+0f41b7e9b|Wei-Ting Yang|Wed May 6 12:31:20 2026 +0800|django: bump to version 6.0.5
+fb1f91cc5|Alexandru Ardelean|Thu Apr 9 08:25:28 2026 +0300|python3-django: update to 6.0.4
+8272fcce5|Alexandru Ardelean|Sun Mar 29 12:43:53 2026 +0000|python-sqlparse: bump to 0.5.5
+5a36a775d|Wei-Ting Yang|Fri Jul 10 14:51:45 2026 +0800|python-asgiref: improve version check in test.sh
+c9981d527|Alexandru Ardelean|Sat Apr 4 20:34:52 2026 +0300|python-asgiref: bump to 3.11.1
+d3dba685e|Jack Lovell|Sun May 31 15:49:39 2026 +0100|ocserv: support custom server SSL certificate
+af3588c20|Paul Donald|Tue Apr 21 16:10:02 2026 +0200|ocserv: bump to v1.4.1
+023331deb|Dirk Brenken|Tue Jul 14 18:38:15 2026 +0200|adblock: update 4.5.6-4
+c773406dd|Glenn Strauss|Thu Jul 9 18:59:59 2026 -0400|lighttpd: update to lighttpd 1.4.85 release hash
+77e57b4d1|Daniel F. Dickinson|Fri Jul 10 02:12:21 2026 -0400|zabbix: add version check override
+
+
 </details>

@@ -21,69 +21,84 @@ fi
 #------------------------------------------------------移植包------------------------------------------------------------
 # --- 拉取上游仓库 ---
 rm -rf temp_resp
-git clone -b master --single-branch https://github.com/openwrt/packages.git temp_resp/openwrt_packages
-git clone -b master --single-branch https://github.com/immortalwrt/luci.git temp_resp/immortalwrt_luci
-git clone -b master --single-branch https://github.com/immortalwrt/packages.git temp_resp/immortalwrt_packages
-
-# =========================================================
-# Golang/Rust 原生覆盖 (放入 package)
-# =========================================================
-# rm -rf package/custom_overrides
-# mkdir -p package/custom_overrides
-# cp -a temp_resp/openwrt_packages/lang/golang package/custom_overrides/
-# cp -a temp_resp/openwrt_packages/lang/rust package/custom_overrides/
-
-# GOLANG_TIME=$(cd temp_resp/openwrt_packages && git log -1 --format=%cd --date=unix -- lang/golang)
-# RUST_TIME=$(cd temp_resp/openwrt_packages && git log -1 --format=%cd --date=unix -- lang/rust)
-
-# if [ -n "$GOLANG_TIME" ]; then
-#     find package/custom_overrides/golang -exec touch -m -d @"$GOLANG_TIME" {} +
-# else
-#     echo "⚠️ 警告: 无法提取 Golang 的上游时间戳，将使用拷贝时的时间"
-# fi
-
-# if [ -n "$RUST_TIME" ]; then
-#     find package/custom_overrides/rust -exec touch -m -d @"$RUST_TIME" {} +
-# else
-#     echo "⚠️ 警告: 无法提取 Rust 的上游时间戳，将使用拷贝时的时间"
-# fi
-
 
 # =================================================================
-# 定义极简版移植函数 (针对新增包,源仓库必须没有这个包,否则时间戳会被覆盖)
+# 极速拉取并注入 Feeds 树的函数
 # =================================================================
-port_package() {
-    local src_repo="$1"
-    local pkg_path="$2"
-    local target_dir="$3"
-    local pkg_name=$(basename "$pkg_path")
+inject_feed() {
+    local repo_url="$1"
+    local feed_dir="$2"
+    shift 2
+    local paths=("$@")
+
+    echo "🚀 正在从 $repo_url 极速拉取至 $feed_dir ..."
     
-    # 提取上游真实时间并复制
-    local commit_time=$(cd "$src_repo" && git log -1 --format=%cd --date=unix -- "$pkg_path")
-    if [ -n "$commit_time" ]; then
-        cp -a "$src_repo/$pkg_path" "$target_dir/"
-        find "$target_dir/$pkg_name" -exec touch -m -d @"$commit_time" {} +
-    else
-        echo "⚠️ 警告: 无法提取 $pkg_path 的时间戳，直接复制文件"
-        cp -a "$src_repo/$pkg_path" "$target_dir/"
-    fi
+    # 使用稀疏检出极速下载（不会拉取无关代码）
+    git clone --filter=blob:none --sparse --depth=1 "$repo_url" temp_repo > /dev/null 2>&1
+    cd temp_repo
+    git sparse-checkout set "${paths[@]}" > /dev/null 2>&1
+    
+    # 提取上游最新的 Commit 时间戳 (作为兜底时间)
+    local fallback_time=$(git log -1 --format=%cd --date=unix 2>/dev/null)
+    cd ..
+
+    for p in "${paths[@]}"; do
+        if [ -d "temp_repo/$p" ]; then
+            local pkg_name=$(basename "$p")
+            local dest_path="$feed_dir/$pkg_name"
+            
+            # 1. 动态清理 OpenWrt 软链接 (防止文件类型冲突)
+            local feed_name=$(echo "$feed_dir" | cut -d'/' -f2)
+            local symlink_path="package/feeds/$feed_name/$pkg_name"
+            if [ -h "$symlink_path" ] || [ -d "$symlink_path" ]; then
+                rm -rf "$symlink_path"
+            fi
+
+            # 2. 清理并覆盖目标目录
+            rm -rf "$dest_path"
+            cp -r "temp_repo/$p" "$dest_path"
+
+            # 3. 尝试提取文件真实时间戳，如果失败则使用整个库的 commit 时间
+            local file_time=$(cd temp_repo && git log -1 --format=%cd --date=unix -- "$p" 2>/dev/null)
+            if [ -z "$file_time" ]; then
+                file_time=$fallback_time
+            fi
+            
+            # 修改时间戳，欺骗 OpenWrt 编译缓存
+            find "$dest_path" -exec touch -m -d @"$file_time" {} +
+            
+            echo "✅ 已成功注入并伪装时间戳: $pkg_name"
+        fi
+    done
+
+    rm -rf temp_repo
 }
 
-# 移植 ImmortalWrt LuCI 插件与依赖
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-cifs-mount" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-ddns-go" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-diskman" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-eqos" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-homeproxy" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-netdata" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-ramfree" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-vlmcsd" "feeds/luci/applications"
-port_package "temp_resp/immortalwrt_luci" "applications/luci-app-wechatpush" "feeds/luci/applications"
+# =================================================================
+# 执行注入任务 (注意这里的目标目录直接是 feeds 对应的实际目录)
+# =================================================================
 
-port_package "temp_resp/immortalwrt_packages" "net/ddns-go" "feeds/packages/net"
-port_package "temp_resp/immortalwrt_packages" "net/vlmcsd" "feeds/packages/net"
+# 1. 注入基础依赖包
+inject_feed "https://github.com/openwrt/packages.git" "feeds/packages/lang" \
+    "lang/golang" \
+    "lang/rust"
 
-rm -rf temp_resp
+inject_feed "https://github.com/immortalwrt/packages.git" "feeds/packages/net" \
+    "net/ddns-go" \
+    "net/vlmcsd"
+
+# 2. 注入 LuCI 界面
+inject_feed "https://github.com/immortalwrt/luci.git" "feeds/luci/applications" \
+    "applications/luci-app-homeproxy" \
+    "applications/luci-app-ddns-go" \
+    "applications/luci-app-diskman" \
+    "applications/luci-app-eqos" \
+    "applications/luci-app-netdata" \
+    "applications/luci-app-ramfree" \
+    "applications/luci-app-vlmcsd" \
+    "applications/luci-app-wechatpush"
+
+echo "🎉 所有插件注入完毕，保持了原汁原味的 Makefile 相对路径！"
 #--------------------------------------------------------------end 移植包--------------------------------------------------------
 
 
@@ -154,7 +169,5 @@ chmod +x files/etc/uci-defaults/99-custom-ssh-config
 
 #------------------------------------------------end 修改脚本-------------------------------------------------------
 
-./scripts/feeds update -a
-./scripts/feeds install -a
 
 echo "DIY2 is complate!"
