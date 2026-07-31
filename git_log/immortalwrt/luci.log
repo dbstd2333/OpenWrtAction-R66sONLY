@@ -1,25 +1,21 @@
 <details> <summary> <b>luci new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/immortalwrt/luci/compare/ed7692cb08a953e2e503287e0337c8b548cf4ba5...5d8f03d355c8932e57961243a778ea1687553f51)  
+#### [:mega: Full Changelog. ](https://github.com/immortalwrt/luci/compare/5d8f03d355c8932e57961243a778ea1687553f51...3608386a77a41c167c8ee7a4221d787d4702d3c2)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-5d8f03d355|Tianling Shen|Wed Jul 22 12:11:33 2026 +0800|luci-app-appfilter: bump to 6.1.4
-ed0080e7fb|Tianling Shen|Wed Jul 22 11:22:01 2026 +0800|Merge Official Source
-01f14c6f43|Interesting Gang|Sun Jul 5 18:59:43 2026 +0800|luci-app-passwall: bump to 26.7.16
-8291c9f524|Dirk Brenken|Tue May 12 21:28:44 2026 +0200|luci-app-lxc: fix authenticated path traversal and ACL bypass (host root)
-a03941bdd4|Liangbin Lian|Wed Jul 1 21:14:09 2026 +0800|luci-base: dispatcher.uc: escape URL path and username when logging
-2acd536063|Coia Prant|Wed May 27 10:03:15 2026 +0000|luci-mod-network: don't show Carrier on dynamic/alias interface
-237d6354ef|Daniel F. Dickinson|Fri Jul 3 21:31:20 2026 -0400|luci-app-nut: only allow admin write access and limit read access
-c155cd9945|Paul Donald|Tue May 26 17:26:02 2026 +0300|luci-app-ddns: correctness fixes
-61232153a8|Dirk Brenken|Mon Jul 20 18:15:38 2026 +0200|luci-app-banip: grant the ubus file methods used by the frontend
-7370d6b85e|Dirk Brenken|Mon Jul 20 18:05:22 2026 +0200|luci-app-adblock: grant the ubus file methods used by the frontend
-f539c17ad2|Dirk Brenken|Mon Jul 20 17:51:46 2026 +0200|luci-app-travelmate: fix status polling and uplink creation for non-root users
-61d191e37b|Stan Grishin|Fri Jul 17 18:25:43 2026 +0000|luci-app-https-dns-proxy: update to 2026.05.06-1
-a8350bc4ad|Stan Grishin|Fri Jul 17 18:25:18 2026 +0000|luci-app-adblock-fast: update to 1.2.4-4
-0465916d7a|Stan Grishin|Fri Jul 17 18:14:32 2026 +0000|luci-app-pbr: update to 1.2.2-20
-ca9f73a885|Dirk Brenken|Sun Jul 19 18:32:05 2026 +0200|luci-app-banip: fix ACL for non-root users
-
-
+3608386a77|Tianling Shen|Mon Jul 27 12:13:11 2026 +0800|Merge Official Source
+37279809c2|Hannu Nyman|Sun Jul 26 23:07:28 2026 +0300|luci-base: sync translations
+46a6849ad9|Hannu Nyman|Sun Jul 26 22:57:49 2026 +0300|luci-proto-wireguard: escape slash in regex in javascript
+300b563f7b|Hannu Nyman|Sun Jul 26 22:57:38 2026 +0300|treewide: escape slash chars in regex strings in .js files
+35e46cd9cf|Dirk Brenken|Sun Jul 26 21:34:57 2026 +0200|luci-app-adblock: fix dropped and unescaped map entries
+be08889299|Dirk Brenken|Sun Jul 26 19:26:36 2026 +0200|luci-app-banip: several map improvements
+fc5ce458ac|Andy Chiang|Sat Jul 25 17:49:51 2026 +0700|luci-app-ddns: fix syntax error
+b0db6e77e5|Hauke Mehrtens|Sat Jul 4 01:50:45 2026 +0200|luci-mod-network: wireless: add gcmp256, sae_ext_key, transition_disable
+c6a99a74f4|Hauke Mehrtens|Sat Jul 4 01:50:45 2026 +0200|luci-mod-network: wireless: add WPA3-Personal Compatibility Mode
+58d43e57af|Jo-Philipp Wich|Fri Jul 24 11:56:35 2026 +0200|rpcd: fix file ACLs for symlinked /proc paths
+7ef993840a|Hannu Nyman|Thu Jul 23 23:04:43 2026 +0300|treewide: backport and sync translations.
+e03260dd7c|Hauke Mehrtens|Tue Jul 21 22:38:48 2026 +0200|luci-proto-ipv6: dhcpv6: add option to select the DHCPv6 client ID
+be10db9f09|Hauke Mehrtens|Tue Jul 21 22:38:48 2026 +0200|luci-base: protocol/dhcp: add option to select the DHCPv4 client ID
 </details>

@@ -1,25 +1,25 @@
 <details> <summary> <b>packages new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/immortalwrt/packages/compare/24ec100aa92cfeaafd9878c9570e44f9822759eb...eb68b2392b7fc2b0ce6e5a53df7a8489a2839eb0)  
+#### [:mega: Full Changelog. ](https://github.com/immortalwrt/packages/compare/eb68b2392b7fc2b0ce6e5a53df7a8489a2839eb0...a5b67070eae7adf66e9c2285357272caad1c433b)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-eb68b2392|Tianling Shen|Wed Jul 22 12:02:14 2026 +0800|open-app-filter: update to Git HEAD (2026-04-20)
-a6ac65040|Beginner|Thu Apr 2 20:27:14 2026 +0800|open-app-filter: update to Git HEAD (2026-04-02)
-44e970867|ImmortalWrt AutoUpdate Bot|Thu Jul 9 14:09:09 2026 +0800|rtp2httpd: Update to 3.14.3
-705c44d04|ImmortalWrt AutoUpdate Bot|Tue Jun 30 16:16:44 2026 +0800|rtp2httpd: Update to 3.14.2
-9ee7f82b1|Tianling Shen|Wed Jul 22 11:15:05 2026 +0800|Merge Official Source
-f36e3e98d|Hauke Mehrtens|Tue Jul 21 03:15:29 2026 +0200|cgi-io: update to Git HEAD (2026-07-21)
-e84caf600|Niklas Thorild|Mon Jul 20 22:24:02 2026 +0200|telegraf: update to 1.39.2
-320310783|Dharmik Parmar|Thu Jul 2 09:01:55 2026 +0530|watchcat: update package maintainers
-c5a67ea9b|Dharmik Parmar|Thu Jul 2 09:01:19 2026 +0530|watchcat: resolve logical interface names
-62cda43de|Dharmik Parmar|Wed Jun 24 22:37:18 2026 +0530|watchcat: clarify recovery timer baseline
-1eb8198d6|Dharmik Parmar|Mon May 11 23:34:08 2026 +0530|watchcat: add optional failure timer reset
-8ecbd3404|Dharmik Parmar|Sun May 10 01:47:48 2026 +0530|watchcat: clarify restart log wording
-0b2580841|Josef Schlehofer|Wed Jul 1 23:58:46 2026 +0200|ci: add nightly LLM review workflow
-f7a86dd56|dependabot[bot]|Sat Jul 4 21:12:16 2026 +0000|ci: bump lewagon/wait-on-check-action from 1.8.0 to 1.8.1
-747627ad8|Josef Schlehofer|Sat Jul 4 14:52:06 2026 +0200|ci: migrate to webhook-based stale bot
+a5b67070e|Tianling Shen|Mon Jul 27 12:11:04 2026 +0800|Merge Official Source
+3dc6fa0d3|Andy Chiang|Sat Jul 11 15:15:59 2026 +0700|golang: bump 1.26 to 1.26.5
+de4c93759|Tianling Shen|Mon Jul 6 10:12:43 2026 +0800|openlist: Update to 4.2.3
+51a21cc7b|Tianling Shen|Wed Jul 22 12:03:08 2026 +0800|cloudreve: update to 4.18.0
+addb126f1|Tianling Shen|Thu Jul 9 14:35:58 2026 +0800|rclone: Update to 1.74.4
+7bb1664ea|Tianling Shen|Thu Jul 9 14:23:54 2026 +0800|dnsproxy: Update to 0.83.0
+354b5fb51|Tianling Shen|Thu Jul 2 10:05:18 2026 +0800|dnsproxy: Update to 0.82.0
+cd11335d1|Tianling Shen|Mon Jun 29 14:21:50 2026 +0800|dnsproxy: Update to 0.81.4
+83d7e2b6d|Tianling Shen|Tue Jun 30 18:06:58 2026 +0800|cloudflared: Update to 2026.6.1
+ff01bc0ad|Tianling Shen|Mon Jun 15 11:37:09 2026 +0800|openlist: Update to 4.2.2
+0e807c2a7|Tianling Shen|Mon Jun 15 11:36:39 2026 +0800|rclone: Update to 1.74.3
+3fccac371|Tianling Shen|Mon Jun 15 11:36:18 2026 +0800|dnslookup: Update to 1.12.0
+81794d2af|Tianling Shen|Mon Jun 15 11:35:34 2026 +0800|cloudflared: Update to 2026.6.0
+16e6b8ce4|kouhei-ioroi|Wed Apr 15 15:09:36 2026 +0900|cloudflared: support multiple upstream interfaces. support multiple upstream interfaces in config.
+f8beead72|Tianling Shen|Mon Jun 15 10:43:04 2026 +0800|cloudreve: exclude tests pkg
 
 
 </details>
