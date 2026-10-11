@@ -1,0 +1,12 @@
+<details> <summary> <b>OpenWrt-nikki new commit log :rocket: </b> </summary>
+
+#### [:mega: Full Changelog. ](https://github.com/nikkinikki-org/OpenWrt-nikki/compare/7b203f6c4c5e94c6c0026acb301090aa1d310e7f...31339d53b454f575082dc4e16510c96858e01921)  
+:heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
+
+SHA|Author|Date|Message
+-|-|-|-
+31339d5|Joseph Mory|Sat Oct 10 17:27:41 2026 +0800|chore: bump version to 1.26.2
+20b2abf|Joseph Mory|Thu Oct 8 10:12:39 2026 +0800|fix: test profile execution with environment variables
+9d561a2|Joseph Mory|Thu Oct 8 09:15:01 2026 +0800|feat: support mips tun stack
+bf032e5|github-actions[bot]|Thu Oct 8 09:05:50 2026 +0800|chore: update mihomo-meta to v1.19.32 (#911)
+</details>
