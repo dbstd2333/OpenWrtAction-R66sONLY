@@ -1,15 +1,13 @@
 <details> <summary> <b>immortalwrt new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/immortalwrt/immortalwrt/compare/ce35a9e4ef1b87fbbc2146036ce6693e4242861a...214e26e407172790c0045f59afe03a9715608ef8)  
+#### [:mega: Full Changelog. ](https://github.com/immortalwrt/immortalwrt/compare/214e26e407172790c0045f59afe03a9715608ef8...96f566f4a4d04ab44592314bc0279ba9e7de3de0)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-214e26e407|Tianling Shen|Fri Oct 16 11:11:22 2026 +0800|Merge Official Source
-9f89ef7bd2|David Bauer|Fri Oct 16 00:48:16 2026 +0200|hostapd: bump PKG_RELEASE
-3f0f32ac6b|Felix Fietkau|Wed Mar 18 15:58:52 2026 +0000|hostapd: ubus: fix beacon request reporting detail field size
-8ff015a72b|Felix Fietkau|Wed Mar 18 15:58:37 2026 +0000|hostapd: ubus: fix beacon request buffer overflow with reporting detail
-fd75710151|John Crispin|Tue Jul 29 14:04:16 2025 +0200|hostapd: add reporting detail support to RRM beacon request
-da898a239d|Hsiu-Chi Tsai|Fri Oct 9 06:54:16 2026 +0800|ramips: ethernet: ralink: check napi_complete_done() result
-58efa9917d|Shiji Yang|Wed May 20 18:20:50 2026 +0800|uboot-mediatek: fix malformed patch
+96f566f4a4|Tianling Shen|Tue Oct 20 17:10:52 2026 +0800|Merge Official Source
+450459bef3|Hauke Mehrtens|Sun Oct 18 02:11:07 2026 +0200|OpenWrt v25.12.6: revert to branch defaults
+64900e756e|Hauke Mehrtens|Sun Oct 18 02:11:00 2026 +0200|OpenWrt v25.12.6: adjust config defaults
+981c978eff|Josef Schlehofer|Wed Sep 30 13:30:47 2026 +0200|mac80211: realtek: use long TX report timeout for non-PCIe
+6790b06125|Yalei Zang|Wed Sep 23 20:54:42 2026 +0800|airoha: backport EN7581 device-tree updates
 </details>

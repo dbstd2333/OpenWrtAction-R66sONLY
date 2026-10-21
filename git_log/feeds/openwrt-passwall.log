@@ -1,25 +1,18 @@
 <details> <summary> <b>openwrt-passwall new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/13e91380b6f7db1033dfea250fc037b77ca97080...5bd0740772940edef9cd45bfc4a9f796933c54d9)  
+#### [:mega: Full Changelog. ](https://github.com/Openwrt-Passwall/openwrt-passwall/compare/5bd0740772940edef9cd45bfc4a9f796933c54d9...0b14995d2375083ee2ff489a839966e3e8ae1cf4)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
+0b14995d|A-BO|Thu Oct 22 00:25:03 2026 +0800|luci: bump 26.10.22
+b6c29e2f|A-BO|Wed Oct 21 23:49:07 2026 +0800|luci: select nslookup DNS port format based on BusyBox version
+9b72dfb2|A-BO|Wed Oct 21 22:14:05 2026 +0800|luci: add shared SHA256 verification for update downloads
+ae258e4d|A-BO|Tue Oct 20 17:33:27 2026 +0800|fix(app): return 0 from start() so boot creates ready.lock
+ab7ff4c2|A-BO|Tue Oct 20 01:35:03 2026 +0800|luci: optimize and fix clash subconverter
+70994636|Husky|Mon Oct 19 19:48:57 2026 +0800|feat(subscribe): compute md5 on parsed nodes and decouple account info refresh (#4496)
+00202bb0|A-BO|Sun Oct 18 14:41:36 2026 +0800|luci: optimize log output
+d19c26d5|A-BO|Sun Oct 18 12:55:12 2026 +0800|luci: Adjust DNS relevant
+5ed12a5e|A-BO|Sat Oct 17 00:33:42 2026 +0800|luci: optimize
 5bd07407|A-BO|Sat Oct 17 00:33:42 2026 +0800|luci: optimize
-d8ec3c81|A-BO|Fri Oct 16 21:52:50 2026 +0800|luci: bump 26.10.16-2
-d048e632|A-BO|Fri Oct 16 21:41:08 2026 +0800|luci: optimize and fix
-743d9edf|A-BO|Fri Oct 16 21:26:35 2026 +0800|luci: support pipe-separated subscription filter keywords and optimize matching
-31d11ce5|A-BO|Fri Oct 16 20:03:42 2026 +0800|luci: Fix SmartDNS auto fallback with CNAME records
-b15b5799|A-BO|Fri Oct 16 00:45:04 2026 +0800|luci: bump 26.10.16
-e4d136e1|A-BO|Fri Oct 16 00:43:05 2026 +0800|luci: Remove unused translation entries from passwall.po
-aa28b352|A-BO|Fri Oct 16 00:11:43 2026 +0800|luci: Fix some field translations
-c3bf105c|A-BO|Thu Oct 15 23:43:27 2026 +0800|luci: support xray masque warp (client)
-8cf35732|A-BO|Thu Oct 15 21:24:55 2026 +0800|luci: Adjust SmartDNS direct DNS config
-356dc9c4|A-BO|Thu Oct 15 01:56:38 2026 +0800|luci: refactor SmartDNS logic
-586d7cf6|ShanStone|Wed Oct 14 17:19:20 2026 +0800|luci: make insert_nftset function accept pipe input only
-8f732385|A-BO|Wed Oct 14 03:22:05 2026 +0800|luci: Add automatic mode for SmartDNS default DNS
-09115691|A-BO|Tue Oct 13 01:43:07 2026 +0800|luci: fix acl config
-1856616a|A-BO|Tue Oct 13 01:25:22 2026 +0800|luci: deduplicate node selector group data and isolate caches
-
-
 </details>

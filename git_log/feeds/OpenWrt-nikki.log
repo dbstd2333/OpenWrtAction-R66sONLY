@@ -1,9 +1,0 @@
-<details> <summary> <b>OpenWrt-nikki new commit log :rocket: </b> </summary>
-
-#### [:mega: Full Changelog. ](https://github.com/nikkinikki-org/OpenWrt-nikki/compare/31339d53b454f575082dc4e16510c96858e01921...78e1a751d55ed0762811f054ee699049473da7b8)  
-:heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
-
-SHA|Author|Date|Message
--|-|-|-
-78e1a75|Joseph Mory|Wed Oct 14 17:11:28 2026 +0800|fix: do not restart cron service after crontab changed
-</details>
