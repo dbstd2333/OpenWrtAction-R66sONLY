@@ -1,9 +1,9 @@
 <details> <summary> <b>openwrt-smartdns new commit log :rocket: </b> </summary>
 
-#### [:mega: Full Changelog. ](https://github.com/pymumu/openwrt-smartdns/compare/d5e498f8d5e9a5702a0f9b4fd237bb4efca444c9...8c5b92cc45ed55e12a4e941a661ea256c6c0a224)  
+#### [:mega: Full Changelog. ](https://github.com/pymumu/openwrt-smartdns/compare/8c5b92cc45ed55e12a4e941a661ea256c6c0a224...9dce49aaf96fcff61a1901b7a28cf904c452967c)  
 :heavy_exclamation_mark: The list displays only the latest 15 commit logs.  
 
 SHA|Author|Date|Message
 -|-|-|-
-8c5b92c|David Mandy|Fri Nov 20 12:51:18 2026 +0800|smartdns: bump to 48.5
+9dce49a|David Mandy|Sun Nov 22 19:00:59 2026 +0800|smartdns-webui: bump to latest commit
 </details>
